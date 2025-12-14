@@ -20,5 +20,7 @@
     "vite-plugin-zip-pack": "^1.2.4",
     "vitest": "^4.0.15"
   },
-  "packageManager": "pnpm@10.25.0"
+  "packageManager": "pnpm@10.25.0",
+  "bugs": "https://github.com/GaryB432/keep-note/issues",
+  "repository": "github:GaryB432/keep-note"
 }
