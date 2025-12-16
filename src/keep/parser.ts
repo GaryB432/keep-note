@@ -19,7 +19,7 @@ export type Note = {
 
 export function findNotes(content: HTMLElement): Note[] {
   const select_note_buttons = content.querySelectorAll<Element>(
-    'div[data-tooltip-text="Select note"]'
+    'div[data-tooltip-text="Select note"]',
     // '*:has(> * > [data-tooltip-text="Select note"])'
   );
 
@@ -31,7 +31,7 @@ export function findNotes(content: HTMLElement): Note[] {
   const select_button_parents = Array.from<Element>(select_note_buttons)
     .map((e) => e.parentElement!)
     .filter(
-      (buttonParent) => buttonParent && hasPresnetationElements(buttonParent)
+      (buttonParent) => buttonParent && hasPresnetationElements(buttonParent),
     );
 
   const notes = select_button_parents.map<Note>((select_button_parent) => {
@@ -39,7 +39,7 @@ export function findNotes(content: HTMLElement): Note[] {
       select_button_parent.querySelector<HTMLElement>("div:nth-child(2)");
     if (!secundo) {
       throw new Error(
-        "these are expected to have a select button and then a note-div"
+        "these are expected to have a select button and then a note-div",
       );
     }
     return toNote(secundo);
