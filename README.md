@@ -28,6 +28,8 @@ npm run build
 
 - `src/popup/` - Extension popup UI
 - `src/content/` - Content scripts
+- `src/keep/` - Functions and values for [google-keep](https://support.google.com/keep#topic=6262468) handling
+- `src/markdown/` - Functions and values for markdown handling
 - `manifest.config.ts` - Chrome extension manifest configuration
 
 ## Chrome Extension Development Notes
@@ -39,6 +41,7 @@ npm run build
 
 ## Documentation
 
-- [Svelte Documentation](https://svelte.dev/)
+- [Google Keep Help](https://support.google.com/keep#topic=6262468)
+- [GitHub Flavored Markdown Spec](https://github.github.com/gfm/)
 - [Vite Documentation](https://vitejs.dev/)
 - [CRXJS Documentation](https://crxjs.dev/vite-plugin)
