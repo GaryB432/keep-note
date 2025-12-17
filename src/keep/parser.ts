@@ -1,3 +1,5 @@
+import { stringify } from "@/shared/strings";
+
 type Image = {
   title?: string | undefined;
   src: string;
@@ -10,6 +12,7 @@ type Anchor = {
 
 export type Note = {
   body: "see markdown!";
+  // TODO don't need body
   context: Element; //  the div that was `selected` by a `Select note` button. It contains many children
   title?: string | undefined;
   lines: string[];
@@ -114,21 +117,4 @@ export function toNote(context: Element): Note {
 
   const body = "see markdown!";
   return { anchors, images, body, title, context, lines };
-}
-
-function _h1(s: string): string {
-  return "# ".concat(s);
-}
-
-function _tabs(n: number): string {
-  return Array(n).fill("\t").join("");
-}
-
-function stringify(o: string | Element | undefined | null): string | undefined {
-  if (!o) return undefined;
-  const s = typeof o === "string" ? o : o?.textContent;
-  if (!s || s.trim().length === 0) {
-    return undefined;
-  }
-  return s?.replace(/\n/g, " ").replace(/\s+/g, " ").trim();
 }
