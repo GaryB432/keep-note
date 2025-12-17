@@ -13,7 +13,7 @@ type Anchor = {
 export type Note = {
   body: "see markdown!";
   // TODO don't need body
-  context: Element; //  the div that was `selected` by a `Select note` button. It contains many children
+  context?: Element; //  the div that was `selected` by a `Select note` button. It contains many children
   title?: string | undefined;
   lines: string[];
   anchors: Anchor[];
