@@ -1,16 +1,19 @@
 import { type Note } from "@/keep/parser";
-import { MarkdownDocument } from "./document";
+import { MarkdownDocument, MarkdownDocumentOptions } from "./document";
 
 function leftWords(s: string) {
   return s.slice(0, 75);
 }
 
-export function createDocumentFrom(note: Note): MarkdownDocument {
+export function createDocumentFrom(
+  note: Note,
+  opts: MarkdownDocumentOptions = { separator: "" }
+): MarkdownDocument {
   const title =
     note.title ??
     (note.lines.length > 0 ? leftWords(note.lines[0]) : "Blank Document");
 
-  const doc = new MarkdownDocument("<<");
+  const doc = new MarkdownDocument(opts);
   doc.appendHeading(title);
   doc.appendParagraph(note.lines);
 

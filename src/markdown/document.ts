@@ -1,14 +1,18 @@
 const HASHES = "######";
 const SPACES = "      ";
 
+export interface MarkdownDocumentOptions {
+  separator: "<<" | "";
+}
+
 export class MarkdownDocument {
   private readonly plainLines: string[] = [];
-  constructor(private separator = "") {}
+  constructor(private opts: MarkdownDocumentOptions) {}
 
   get lines() {
     const working_lines = [...this.plainLines];
     const last_line = working_lines.pop();
-    return last_line === this.separator ? working_lines : this.plainLines;
+    return last_line === this.opts.separator ? working_lines : this.plainLines;
   }
 
   public appendParagraph(lines: string[]) {
@@ -24,14 +28,14 @@ export class MarkdownDocument {
       SPACES.slice(0, level * 3)
         .concat(numbered ? "1." : "-")
         .concat(" ")
-        .concat(s),
+        .concat(s)
     );
   }
 
   private append(lines: string[], pre: (s: string) => string = (s) => s) {
     this.plainLines.push(
-      ...lines.filter((line) => line !== this.separator).map(pre),
-      this.separator,
+      ...lines.filter((line) => line !== this.opts.separator).map(pre),
+      this.opts.separator
     );
   }
 }

@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { type Note } from "../../src/keep/parser";
 import { createDocumentFrom } from "../../src/markdown/factory";
+import { MarkdownDocumentOptions } from "../../src/markdown/document";
+
+const opts: MarkdownDocumentOptions = {
+  separator: "<<",
+};
 
 describe("factory basics", () => {
   const cheer = ["for he is a jolly good fellow uno", "which nobody can deny"];
@@ -12,7 +17,7 @@ describe("factory basics", () => {
       anchors: [],
       images: [],
     };
-    const sut = createDocumentFrom(n);
+    const sut = createDocumentFrom(n, opts);
     expect(sut.lines.join("\n")).toMatchInlineSnapshot(`
       "# Blank Document
       <<"
@@ -27,7 +32,7 @@ describe("factory basics", () => {
       title: "lower case but o well",
       images: [],
     };
-    const sut = createDocumentFrom(n);
+    const sut = createDocumentFrom(n, opts);
     expect(sut.lines.join("\n")).toMatchInlineSnapshot(`
       "# lower case but o well
       <<
@@ -47,7 +52,7 @@ describe("factory basics", () => {
       title: "Meium-sized documents are examined",
       images: [],
     };
-    const sut = createDocumentFrom(n);
+    const sut = createDocumentFrom(n, opts);
     expect(sut.lines.join("\n")).toMatchInlineSnapshot(`
       "# Meium-sized documents are examined
       <<
