@@ -1,0 +1,4 @@
+**/_templates/
+**/libs/*/tests/fixtures/
+tmp/
+pnpm-lock.yaml
