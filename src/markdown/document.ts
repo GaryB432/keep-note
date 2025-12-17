@@ -1,5 +1,3 @@
-export const greet = (name: string) => `Hello ${name} from: Document`;
-
 const HASHES = "######";
 const SPACES = "      ";
 
