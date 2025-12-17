@@ -1,4 +1,4 @@
-import { findNotes, type Note } from "@/keep/parser";
+import { type Note } from "@/keep/parser";
 import { MarkdownDocument } from "./document";
 
 function leftWords(s: string) {
@@ -10,10 +10,20 @@ export function createDocumentFrom(note: Note): MarkdownDocument {
     note.title ??
     (note.lines.length > 0 ? leftWords(note.lines[0]) : "Blank Document");
 
-  const d = new MarkdownDocument("<<");
-  d.appendHeading(title);
-  d.appendParagraph(note.lines);
-  d.appendList(["coming", "soon"]);
+  const doc = new MarkdownDocument("<<");
+  doc.appendHeading(title);
+  doc.appendParagraph(note.lines);
 
-  return d;
+  if (note.anchors.length > 0) {
+    doc.appendList(note.anchors.map((a) => makeAnchorLineOk(a)));
+  }
+
+  return doc;
+}
+
+function makeAnchorLineOk(anchor: {
+  title?: string | undefined;
+  href: string;
+}): string {
+  return `[${anchor.title ?? anchor.href}](${anchor.href})`;
 }
