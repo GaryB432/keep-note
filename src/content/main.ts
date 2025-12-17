@@ -15,8 +15,7 @@ function reload() {
   notes.forEach((note, i) => {
     const id = `knn${i.toFixed(0)}`;
     const className = "keep-note-button-ftw";
-    let existantButtons = note.context.getElementsByClassName(className);
-    if (existantButtons.length === 0) {
+    if (note.context.getElementsByClassName(className).length === 0) {
       const md = createDocumentFrom(note);
       const btn = document.createElement("button");
       btn.id = id;
@@ -57,5 +56,5 @@ chrome.runtime.onMessage.addListener(
       // sendResponse({ status: "message_received" }); // Optional: send a response back
       return false;
     }
-  },
+  }
 );

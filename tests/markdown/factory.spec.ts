@@ -1,8 +1,29 @@
 import { describe, it, expect } from "vitest";
-import { greet } from "../../src/markdown/factory";
+import { createDocumentFrom } from "../../src/markdown/factory";
+import { type Note } from "../../src/keep/parser";
+import { JSDOM } from "jsdom";
 
-describe("Factory stub", () => {
-  it("should greet the whole world as one for now, whatever 'factory' may be", () => {
-    expect(greet("world")).toEqual("Hello world from: Factory");
+describe("factory basics", () => {
+  it("handles blank document", () => {
+    const dom = new JSDOM(``);
+    const w = dom.window;
+    const doc = w.document;
+
+    const n: Note = {
+      body: "see markdown!",
+      context: doc.createElement("div"),
+      lines: [],
+      anchors: [],
+      images: [],
+    };
+    const sut = createDocumentFrom(n);
+    expect(sut.lines.join('\n')).toMatchInlineSnapshot(`
+      "# Blank Document
+      <<
+      <<
+         - coming
+         - soon"
+    `);
+
   });
 });
