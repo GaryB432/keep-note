@@ -16,14 +16,14 @@ export type Note = {
   // TODO don't need body
   context?: Element; //  the div that was `selected` by a `Select note` button. It contains many children
   title?: string | undefined;
-  blocks: string[];
+  blocks: string[][];
   anchors: Anchor[];
   images: Image[];
 };
 
 export function findNotes(content: HTMLElement): Note[] {
   const select_note_buttons = content.querySelectorAll<Element>(
-    'div[data-tooltip-text="Select note"]',
+    'div[data-tooltip-text="Select note"]'
     // '*:has(> * > [data-tooltip-text="Select note"])'
   );
 
@@ -35,7 +35,7 @@ export function findNotes(content: HTMLElement): Note[] {
   const select_button_parents = Array.from<Element>(select_note_buttons)
     .map((e) => e.parentElement!)
     .filter(
-      (buttonParent) => buttonParent && hasPresnetationElements(buttonParent),
+      (buttonParent) => buttonParent && hasPresnetationElements(buttonParent)
     );
 
   const notes = select_button_parents.map<Note>((select_button_parent) => {
@@ -43,7 +43,7 @@ export function findNotes(content: HTMLElement): Note[] {
       select_button_parent.querySelector<HTMLElement>("div:nth-child(2)");
     if (!secundo) {
       throw new Error(
-        "these are expected to have a select button and then a note-div",
+        "these are expected to have a select button and then a note-div"
       );
     }
     return toNote(secundo);
@@ -102,11 +102,12 @@ export function toNote(context: Element): Note {
       // const st = stringify(presentation_paragraph);
       // const m = st ?? "🤷🏻‍♂️";
 
-      presentation_paragraph.children;
-      for (const p_child of presentation_paragraph.children) {
-        switch (p_child.tagName) {
+      // presentation_paragraph.children;
+      for (const span_or_anchor_child_of_presentation_paragraph of presentation_paragraph.children) {
+        switch (span_or_anchor_child_of_presentation_paragraph.tagName) {
           case "SPAN": {
-            const plan_rwa_text = p_child.textContent;
+            const plan_rwa_text =
+              span_or_anchor_child_of_presentation_paragraph.textContent;
             const read_texts = stringify(plan_rwa_text);
             const clean_span_text = read_texts!;
             paragraphs_not_lines_need_separation.push(clean_span_text);
@@ -114,7 +115,10 @@ export function toNote(context: Element): Note {
           }
           case "A": {
             paragraphs_not_lines_need_separation.push(
-              p_child.outerHTML.slice(0, 100),
+              span_or_anchor_child_of_presentation_paragraph.outerHTML.slice(
+                0,
+                100
+              )
             );
             // console.log("hmmmm", p_child.outerHTML);
             break;
@@ -139,6 +143,6 @@ export function toNote(context: Element): Note {
     body,
     title,
     context,
-    blocks: paragraphs_not_lines_need_separation,
+    blocks: [paragraphs_not_lines_need_separation],
   };
 }
