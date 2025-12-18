@@ -17,6 +17,10 @@ export function createDocumentFrom(
   doc.appendHeading(title);
   doc.appendParagraph(note.lines);
 
+  if (note.images.length > 0) {
+    doc.appendList(note.images.map((m) => makeImageOk(m)));
+  }
+
   if (note.anchors.length > 0) {
     doc.appendList(note.anchors.map((a) => makeAnchorLineOk(a)));
   }
@@ -29,4 +33,7 @@ function makeAnchorLineOk(anchor: {
   href: string;
 }): string {
   return `[${anchor.title ?? anchor.href}](${anchor.href})`;
+}
+function makeImageOk(img: { title?: string | undefined; src: string }): string {
+  return img.title ?? img.src;
 }

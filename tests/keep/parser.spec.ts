@@ -76,7 +76,7 @@ describe("Parsing S", () => {
     const notes = findNotes(a);
     expect(notes.length).toEqual(1);
     const [onlyNote] = notes;
-    expect(onlyNote?.context.className).toEqual("context");
+    expect(onlyNote.context!.className).toEqual("context");
   });
 });
 
