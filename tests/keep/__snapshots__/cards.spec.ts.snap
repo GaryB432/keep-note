@@ -1,0 +1,153 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`alpha-bravo 1`] = `
+{
+  "anchors": [],
+  "blocks": [
+    "    • A - Alpha",
+    "    • B - Bravo",
+    "    • C - Charlie",
+    "    • D - Delta",
+    "    • E - Echo",
+    "    • F - Foxtrot",
+    "    • G - Golf",
+    "…",
+  ],
+  "body": "see markdown!",
+  "images": [],
+  "title": "Military Alphabet",
+}
+`;
+
+exports[`descale 1`] = `
+{
+  "anchors": [],
+  "blocks": [
+    "vinegar is above refrigerator",
+    "14oz vinegar + 14oz water (50/50) in resevoir",
+    "remove any spent k-cup",
+    "close lid (leave closed for duration)",
+    "unplug/replug",
+    "press 8 and 12 for 3 seconds (descale lights up)",
+    "press K and dump until add water lamp",
+    "fresh water rinses",
+    "  this is empty irl but need not be rinse vinegar residue from resevoir",
+    "  fill to max w/water",
+    "  press K and dump until descale unlights",
+    "[HOW TO TURN DESCALE LIGHT OFF Keurig…",
+  ],
+  "body": "see markdown!",
+  "images": [],
+  "title": "Descale K-Slim w ICED",
+}
+`;
+
+exports[`gates 1`] = `
+{
+  "anchors": [],
+  "blocks": [
+    "North Gate 1315",
+    "Back 6641",
+    "South 1434",
+    "👉",
+  ],
+  "body": "see markdown!",
+  "images": [
+    {
+      "src": "/u/0/media/v2/1nMcAo%2Faac",
+    },
+  ],
+  "title": "Gate locks",
+}
+`;
+
+exports[`leveraging_chaos 1`] = `
+{
+  "anchors": [],
+  "blocks": [
+    "zettelkasten is a system of anarchy for leveraging chaos",
+  ],
+  "body": "see markdown!",
+  "images": [
+    {
+      "src": "/u/",
+    },
+  ],
+  "title": undefined,
+}
+`;
+
+exports[`media-checklist 1`] = `
+{
+  "anchors": [],
+  "blocks": [],
+  "body": "see markdown!",
+  "images": [],
+  "title": undefined,
+}
+`;
+
+exports[`shared 1`] = `
+{
+  "anchors": [],
+  "blocks": [
+    "Bird seed",
+    "Outdoor thermometers not small",
+    "White tape for blinds",
+    "Caulk or ?",
+    "Compass",
+    "Scoop large f28, I 10. For dog food and mulch, seed etc",
+    "Target Luxor set ask for shipping??",
+    "Kitchen light?",
+    "Manure/compost/topsoil",
+    "Tablecloth",
+  ],
+  "body": "see markdown!",
+  "images": [],
+  "title": "House & suppliess",
+}
+`;
+
+exports[`simple 1`] = `
+{
+  "anchors": [],
+  "blocks": [
+    "Play action pass",
+  ],
+  "body": "see markdown!",
+  "images": [],
+  "title": undefined,
+}
+`;
+
+exports[`simple-list 1`] = `
+{
+  "anchors": [],
+  "blocks": [
+    "Banana",
+    "Extension",
+    "Broach",
+    "Hancock",
+  ],
+  "body": "see markdown!",
+  "images": [],
+  "title": undefined,
+}
+`;
+
+exports[`sticking-points 1`] = `
+{
+  "anchors": [
+    {
+      "href": "https://www.psychologytoday.com/blog/the-nature-nurture-nietzsche-blog/201402/the-sticking-point-why-men-still-outnumber-women-in",
+      "title": "https://www.psychologytoday.com/blog/the-nature-nurture-nietzsche-blog/201402/the-sticking-point-why-men-still-outnumber-women-in",
+    },
+  ],
+  "blocks": [
+    "https://www.psychologytoday.com/blog/the-nature-nurture-nietzsche-blog/201402/the-sticking-point-why-men-still-outnumber-women-in",
+  ],
+  "body": "see markdown!",
+  "images": [],
+  "title": undefined,
+}
+`;

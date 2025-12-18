@@ -1,6 +1,6 @@
 export async function saveFileWithPicker(
   contents: FileSystemWriteChunkType,
-  suggestedName?: string
+  suggestedName?: string,
 ) {
   console.log(contents);
   try {

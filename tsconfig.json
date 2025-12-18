@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "moduleDetection": "force",
-    "lib": ["esnext", "DOM"],
+    "lib": ["esnext", "DOM", "DOM.Iterable"],
     "useDefineForClassFields": true,
     "baseUrl": ".",
     "module": "ESNext",

@@ -1,4 +1,6 @@
-import { stringify } from "@/shared/strings";
+import { spaces, stringify } from "@/shared/strings";
+
+type Block = string;
 
 type Image = {
   title?: string | undefined;
@@ -15,7 +17,7 @@ export type Note = {
   // TODO don't need body
   context?: Element; //  the div that was `selected` by a `Select note` button. It contains many children
   title?: string | undefined;
-  lines: string[];
+  blocks: Block[];
   anchors: Anchor[];
   images: Image[];
 };
@@ -69,24 +71,9 @@ export function toNote(context: Element): Note {
   //   throw new Error("error dfo87ad;");
   // }
   let title: string | undefined;
-  const lines: string[] = [];
+  const blocks: string[] = [];
   const anchors: Anchor[] = [];
   const images: Image[] = [];
-
-  // console.log(context.innerHTML);
-  // const dfd = context.querySelectorAll("*");
-  // dfd.forEach((el) => {
-  //   if (el.childElementCount === 0) {
-  //     console.log("top level", el.tagName, el.role, el.className);
-  //   } else {
-  //     console.log(
-  //       el.tagName,
-  //       el.className,
-  //       el.childElementCount,
-  //       stringify(el.textContent)
-  //     );
-  //   }
-  // });
 
   context.querySelectorAll("DIV[role='textbox']").forEach((d, i) => {
     if (i > 0) {
@@ -110,11 +97,28 @@ export function toNote(context: Element): Note {
     }
   });
 
-  context.querySelectorAll("P[role='presentation']").forEach((p) => {
-    lines.push(stringify(p) ?? "🤷🏻‍♂️");
-    // p.style.border = '1px solid buckwheat'
-  });
+  context
+    .querySelectorAll("P[role='presentation']")
+    .forEach((presentation_paragraph_of_spans) => {
+      const { textContent } = presentation_paragraph_of_spans;
+      if (textContent) {
+        const kids = presentation_paragraph_of_spans.childElementCount;
+        console.assert(kids > 0);
+        const text = stringify(textContent)!;
+        blocks.push(indent((kids - 1) * 2, text));
+      }
+    });
 
   const body = "see markdown!";
-  return { anchors, images, body, title, context, lines };
+  return {
+    anchors,
+    images,
+    body,
+    title,
+    context,
+    blocks,
+  };
+}
+function indent(count: number, text: string): string {
+  return spaces(count).concat(text);
 }

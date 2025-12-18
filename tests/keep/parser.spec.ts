@@ -9,7 +9,7 @@ const { JSDOM } = jsdom;
 const readFixtureHtml = (f: string) =>
   readFileSync(
     join(import.meta.dirname, "..", "fixtures", f.concat(".html")),
-    "utf-8"
+    "utf-8",
   );
 
 const gramma = readFixtureHtml("gramma");
@@ -56,7 +56,7 @@ describe("Parsing XL", () => {
 describe("Parsing S", () => {
   it("finds single note", () => {
     const j = new JSDOM(
-      `<!DOCTYPE html><html><head></head><body></body></html>`
+      `<!DOCTYPE html><html><head></head><body></body></html>`,
     );
     const w = j.window;
 

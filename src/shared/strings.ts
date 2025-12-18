@@ -10,3 +10,7 @@ export function stringify(
   }
   return s?.replace(/\n/g, " ").replace(/\s+/g, " ").trim();
 }
+
+export function spaces(count: number) {
+  return Array(count).fill(" ").join("");
+}
