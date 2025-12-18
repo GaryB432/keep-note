@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "moduleDetection": "force",
+    "lib": ["esnext", "DOM"],
     "useDefineForClassFields": true,
     "baseUrl": ".",
     "module": "ESNext",
@@ -9,12 +10,13 @@
     "paths": {
       "~/*": ["src/*"]
     },
-    "types": ["vite/client", "chrome"],
+    "types": ["vite/client", "@types/wicg-file-system-access", "chrome"],
     "allowImportingTsExtensions": true,
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     // "noUnusedLocals": true,
     // "noUnusedParameters": true,
+
     "noEmit": true,
     "isolatedModules": true,
     "skipLibCheck": true,

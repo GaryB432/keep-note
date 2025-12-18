@@ -26,14 +26,14 @@ export class MarkdownDocument {
       SPACES.slice(0, level * 3)
         .concat(numbered ? "1." : "-")
         .concat(" ")
-        .concat(s)
+        .concat(s),
     );
   }
 
   private append(lines: string[], pre: (s: string) => string = (s) => s) {
     this.plainLines.push(
       ...lines.filter((line) => line !== this.separator).map(pre),
-      this.separator
+      this.separator,
     );
   }
 }
