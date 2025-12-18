@@ -1,10 +1,12 @@
-export const greet = (name: string) => `Hello ${name} from: Wicg`;
-export async function saveFileWithPicker(contents: FileSystemWriteChunkType) {
+export async function saveFileWithPicker(
+  contents: FileSystemWriteChunkType,
+  suggestedName?: string
+) {
   console.log(contents);
   try {
-    // Show a file picker and get a file handle
+    suggestedName ??= someDefaultName();
     const fileHandle = await window.showSaveFilePicker({
-      suggestedName: `keep-inbox-${new Date().toUTCString()}.md`,
+      suggestedName: someDefaultName(),
       types: [
         { description: "Markdown", accept: { "text/x-markdown": ".md" } },
       ],
@@ -22,4 +24,8 @@ export async function saveFileWithPicker(contents: FileSystemWriteChunkType) {
   } catch (err) {
     console.error("Error saving file:", err);
   }
+}
+
+function someDefaultName(): string | undefined {
+  return `keep-inbox-${new Date().toISOString()}.md`;
 }

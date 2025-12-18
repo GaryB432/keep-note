@@ -1,11 +1,10 @@
-export const greet = (name: string) => `Hello ${name} from: Main`;
 import { findNotes, type Note } from "@/keep/parser";
 import { createDocumentFrom } from "@/markdown/factory";
 import { ExtensionMessage } from "@/messages";
 import { saveFileWithPicker } from "./wicg";
 
 let notes: Note[];
-
+ 
 function reload() {
   const { documentElement: contentDocument } = document;
 
@@ -15,8 +14,10 @@ function reload() {
   notes.forEach((note, i) => {
     const id = `knn${i.toFixed(0)}`;
     const className = "keep-note-button-ftw";
-    let existantButtons = note.context.getElementsByClassName(className);
-    if (existantButtons.length === 0) {
+    if (
+      note.context &&
+      note.context.getElementsByClassName(className).length === 0
+    ) {
       const md = createDocumentFrom(note);
       const btn = document.createElement("button");
       btn.id = id;
@@ -27,8 +28,6 @@ function reload() {
         "click",
         (pointerEvent) => {
           console.log(note.title, "🚨");
-          console.log(pointerEvent.currentTarget);
-          //   const md = createDocumentFrom(note);
           saveFileWithPicker(md.lines.join("\n"));
           pointerEvent.stopPropagation();
         },
