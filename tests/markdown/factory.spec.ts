@@ -13,9 +13,9 @@ describe("factory basics", () => {
   it("handles blank document", () => {
     const n: Note = {
       body: "see markdown!",
-      lines: [],
       anchors: [],
       images: [],
+      blocks: [],
     };
     const sut = createDocumentFrom(n, opts);
     expect(sut.lines.join("\n")).toMatchInlineSnapshot(`
@@ -27,7 +27,7 @@ describe("factory basics", () => {
   it("handles S", () => {
     const n: Note = {
       body: "see markdown!",
-      lines: [...cheer],
+      blocks: [...cheer],
       anchors: [],
       title: "lower case but o well",
       images: [],
@@ -44,7 +44,7 @@ describe("factory basics", () => {
   it("handles M", () => {
     const n: Note = {
       body: "see markdown!",
-      lines: [...cheer],
+      blocks: [...cheer],
       anchors: [
         { href: "https://boring.example.com" },
         { href: "https://fun.example.com", title: "fun page" },

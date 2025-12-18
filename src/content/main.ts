@@ -4,7 +4,7 @@ import { ExtensionMessage } from "@/messages";
 import { saveFileWithPicker } from "./wicg";
 
 let notes: Note[];
- 
+
 function reload() {
   const { documentElement: contentDocument } = document;
 

@@ -1,4 +1,5 @@
 import { stringify } from "@/shared/strings";
+import { parseCommandLine } from "typescript";
 
 type Image = {
   title?: string | undefined;
@@ -15,7 +16,7 @@ export type Note = {
   // TODO don't need body
   context?: Element; //  the div that was `selected` by a `Select note` button. It contains many children
   title?: string | undefined;
-  lines: string[];
+  blocks: string[];
   anchors: Anchor[];
   images: Image[];
 };
@@ -69,24 +70,9 @@ export function toNote(context: Element): Note {
   //   throw new Error("error dfo87ad;");
   // }
   let title: string | undefined;
-  const lines: string[] = [];
+  const paragraphs_not_lines_need_separation: string[] = [];
   const anchors: Anchor[] = [];
   const images: Image[] = [];
-
-  // console.log(context.innerHTML);
-  // const dfd = context.querySelectorAll("*");
-  // dfd.forEach((el) => {
-  //   if (el.childElementCount === 0) {
-  //     console.log("top level", el.tagName, el.role, el.className);
-  //   } else {
-  //     console.log(
-  //       el.tagName,
-  //       el.className,
-  //       el.childElementCount,
-  //       stringify(el.textContent)
-  //     );
-  //   }
-  // });
 
   context.querySelectorAll("DIV[role='textbox']").forEach((d, i) => {
     if (i > 0) {
@@ -110,11 +96,49 @@ export function toNote(context: Element): Note {
     }
   });
 
-  context.querySelectorAll("P[role='presentation']").forEach((p) => {
-    lines.push(stringify(p) ?? "🤷🏻‍♂️");
-    // p.style.border = '1px solid buckwheat'
-  });
+  context
+    .querySelectorAll("P[role='presentation']")
+    .forEach((presentation_paragraph) => {
+      // const st = stringify(presentation_paragraph);
+      // const m = st ?? "🤷🏻‍♂️";
+
+      presentation_paragraph.children;
+      for (const p_child of presentation_paragraph.children) {
+        switch (p_child.tagName) {
+          case "SPAN": {
+            const plan_rwa_text = p_child.textContent;
+            const read_texts = stringify(plan_rwa_text);
+            const clean_span_text = read_texts!;
+            paragraphs_not_lines_need_separation.push(clean_span_text);
+            return;
+          }
+          case "A": {
+            paragraphs_not_lines_need_separation.push(
+              p_child.outerHTML.slice(0, 100),
+            );
+            // console.log("hmmmm", p_child.outerHTML);
+            break;
+          }
+          default: {
+            throw new Error("fall thru #f9dk4j");
+          }
+        }
+
+        // console.log(p_child.tagName); // Access properties of the child element
+        // Do stuff with child element
+      }
+
+      // lines.push(stringify(p) ?? "🤷🏻‍♂️");
+      // p.style.border = '1px solid buckwheat'
+    });
 
   const body = "see markdown!";
-  return { anchors, images, body, title, context, lines };
+  return {
+    anchors,
+    images,
+    body,
+    title,
+    context,
+    blocks: paragraphs_not_lines_need_separation,
+  };
 }

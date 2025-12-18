@@ -7,15 +7,15 @@ function leftWords(s: string) {
 
 export function createDocumentFrom(
   note: Note,
-  opts: MarkdownDocumentOptions = { separator: "" }
+  opts: MarkdownDocumentOptions = { separator: "" },
 ): MarkdownDocument {
   const title =
     note.title ??
-    (note.lines.length > 0 ? leftWords(note.lines[0]) : "Blank Document");
+    (note.blocks.length > 0 ? leftWords(note.blocks[0]) : "Blank Document");
 
   const doc = new MarkdownDocument(opts);
   doc.appendHeading(title);
-  doc.appendParagraph(note.lines);
+  doc.appendParagraph(note.blocks);
 
   if (note.images.length > 0) {
     doc.appendList(note.images.map((m) => makeImageOk(m)));

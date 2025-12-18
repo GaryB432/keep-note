@@ -16,8 +16,8 @@ const [descale, gates, shared, simple_list, simple, leveraging_chaos] = [
 ].map((f) =>
   readFileSync(
     join(import.meta.dirname, "..", "fixtures", "cards", f.concat(".html")),
-    "utf-8"
-  )
+    "utf-8",
+  ),
 );
 
 test("descale", () => {
@@ -27,7 +27,7 @@ test("descale", () => {
   expect(note.title).toEqual("Descale K-Slim w ICED");
   expect(note.anchors).toEqual([]);
   expect(note.images).toEqual([]);
-  expect(note.lines).toMatchInlineSnapshot(`
+  expect(note.blocks).toMatchInlineSnapshot(`
     [
       "vinegar is above refrigerator",
       "14oz vinegar + 14oz water (50/50) in resevoir",
@@ -51,7 +51,7 @@ test("gates", () => {
   const note = toNote(dom.window.document.querySelector("div:nth-child(1)")!);
   expect(note.title).toEqual("Gate locks");
   expect(note.anchors).toEqual([]);
-  expect(note.lines).toMatchInlineSnapshot(`
+  expect(note.blocks).toMatchInlineSnapshot(`
     [
       "North Gate 1315",
       "Back 6641",
@@ -68,7 +68,7 @@ test("shared", () => {
   expect(note.title).toEqual("House & suppliess");
   expect(note.anchors).toEqual([]);
   expect(note.images).toEqual([]);
-  expect(note.lines).toMatchInlineSnapshot(`
+  expect(note.blocks).toMatchInlineSnapshot(`
     [
       "Bird seed",
       "Outdoor thermometers not small",
@@ -91,7 +91,7 @@ test("list", () => {
   expect(note.title).toBeUndefined();
   expect(note.anchors).toEqual([]);
   expect(note.images).toEqual([]);
-  expect(note.lines).toMatchInlineSnapshot(`
+  expect(note.blocks).toMatchInlineSnapshot(`
     [
       "Banana",
       "Extension",
@@ -108,7 +108,7 @@ test("simple", () => {
   expect(note.title).toBeUndefined();
   expect(note.anchors).toEqual([]);
   expect(note.images).toEqual([]);
-  expect(note.lines).toMatchInlineSnapshot(`
+  expect(note.blocks).toMatchInlineSnapshot(`
     [
       "Play action pass",
     ]
@@ -126,7 +126,7 @@ test("leveraging_chaos", () => {
       src: "/u/",
     },
   ]);
-  expect(note.lines).toMatchInlineSnapshot(`
+  expect(note.blocks).toMatchInlineSnapshot(`
     [
       "zettelkasten is a system of anarchy for leveraging chaos",
     ]
