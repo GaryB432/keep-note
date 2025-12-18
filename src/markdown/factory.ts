@@ -7,7 +7,7 @@ function leftWords(s: string) {
 
 export function createDocumentFrom(
   note: Note,
-  opts: MarkdownDocumentOptions = { separator: "" },
+  opts: MarkdownDocumentOptions = { separator: "" }
 ): MarkdownDocument {
   const title =
     note.title ??
@@ -15,7 +15,10 @@ export function createDocumentFrom(
 
   const doc = new MarkdownDocument(opts);
   doc.appendHeading(title);
-  doc.appendParagraph(note.blocks);
+
+  note.blocks.forEach((b) => {
+    doc.appendParagraph([b]);
+  });
 
   if (note.images.length > 0) {
     doc.appendList(note.images.map((m) => makeImageOk(m)));

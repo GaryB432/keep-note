@@ -8,7 +8,7 @@ const opts: MarkdownDocumentOptions = {
 };
 
 describe("factory basics", () => {
-  const cheer = ["for he is a jolly good fellow uno", "which nobody can deny"];
+  const cheer = ["for he is a jolly good fellow", "which nobody can deny"];
 
   it("handles blank document", () => {
     const n: Note = {
@@ -18,46 +18,51 @@ describe("factory basics", () => {
       blocks: [],
     };
     const sut = createDocumentFrom(n, opts);
-    expect(sut.lines.join("\n")).toMatchInlineSnapshot(`
-      "# Blank Document
-      <<"
-    `);
+    expect(sut.lines.join("\n")).toMatchInlineSnapshot(`"# Blank Document"`);
   });
 
   it("handles S", () => {
-    const n: Note = {
-      body: "see markdown!",
-      blocks: [...cheer],
-      anchors: [],
-      title: "lower case but o well",
-      images: [],
-    };
-    const sut = createDocumentFrom(n, opts);
+    const sut = createDocumentFrom(
+      {
+        body: "see markdown!",
+        blocks: [...cheer],
+        anchors: [],
+        title: "lower case but o well",
+        images: [],
+      },
+      opts
+    );
     expect(sut.lines.join("\n")).toMatchInlineSnapshot(`
       "# lower case but o well
       <<
-      for he is a jolly good fellow uno
+      for he is a jolly good fellow
+      <<
       which nobody can deny"
     `);
   });
 
   it("handles M", () => {
-    const n: Note = {
-      body: "see markdown!",
-      blocks: [...cheer],
-      anchors: [
-        { href: "https://boring.example.com" },
-        { href: "https://fun.example.com", title: "fun page" },
-      ],
-      title: "Meium-sized documents are examined",
-      images: [],
-    };
-    const sut = createDocumentFrom(n, opts);
+    const sut = createDocumentFrom(
+      {
+        body: "see markdown!",
+        blocks: [...cheer, '  starting at 3'],
+        anchors: [
+          { href: "https://boring.example.com" },
+          { href: "https://fun.example.com", title: "fun page" },
+        ],
+        title: "Meium-sized documents are examined",
+        images: [],
+      },
+      opts
+    );
     expect(sut.lines.join("\n")).toMatchInlineSnapshot(`
       "# Meium-sized documents are examined
       <<
-      for he is a jolly good fellow uno
+      for he is a jolly good fellow
+      <<
       which nobody can deny
+      <<
+        starting at 3
       <<
          - [https://boring.example.com](https://boring.example.com)
          - [fun page](https://fun.example.com)"
