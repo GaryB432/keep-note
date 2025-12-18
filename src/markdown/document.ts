@@ -1,3 +1,4 @@
+// TODO better
 const HASHES = "######";
 const SPACES = "      ";
 
@@ -15,12 +16,12 @@ export class MarkdownDocument {
     return last_line === this.opts.separator ? working_lines : this.plainLines;
   }
 
-  public appendParagraph(lines: string[]) {
-    this.append(lines, (s) => s);
+  public appendParagraph(text: string) {
+    this.append([text]);
   }
 
-  public appendHeading(lines: string, level = 1) {
-    this.append([lines], (s) => HASHES.slice(0, level).concat(" ").concat(s));
+  public appendHeading(text: string, level = 1) {
+    this.append([text], (s) => HASHES.slice(0, level).concat(" ").concat(s));
   }
 
   public appendList(lines: string[], numbered = false, level = 1) {

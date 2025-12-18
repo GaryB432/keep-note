@@ -1,7 +1,7 @@
 export const greet = (name: string) => `Hello ${name} from: Strings`;
 
 export function stringify(
-  o: string | Element | undefined | null
+  o: string | Element | undefined | null,
 ): string | undefined {
   if (!o) return undefined;
   const s = typeof o === "string" ? o : o?.textContent;

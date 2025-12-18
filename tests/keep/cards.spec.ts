@@ -27,9 +27,9 @@ cards.forEach((cardName) => {
       "..",
       "fixtures",
       "cards",
-      cardName.concat(".html")
+      cardName.concat(".html"),
     ),
-    "utf-8"
+    "utf-8",
   );
   test(cardName, () => {
     const dom = new JSDOM();
