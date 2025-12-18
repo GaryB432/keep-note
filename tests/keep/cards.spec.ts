@@ -29,20 +29,18 @@ test("descale", () => {
   expect(note.images).toEqual([]);
   expect(note.blocks).toMatchInlineSnapshot(`
     [
-      [
-        "vinegar is above refrigerator",
-        "14oz vinegar + 14oz water (50/50) in resevoir",
-        "remove any spent k-cup",
-        "close lid (leave closed for duration)",
-        "unplug/replug",
-        "press 8 and 12 for 3 seconds (descale lights up)",
-        "press K and dump until add water lamp",
-        "fresh water rinses",
-        "this is empty irl but need not be",
-        undefined,
-        undefined,
-        "[HOW TO TURN DESCALE LIGHT OFF Keurig…",
-      ],
+      "vinegar is above refrigerator",
+      "14oz vinegar + 14oz water (50/50) in resevoir",
+      "remove any spent k-cup",
+      "close lid (leave closed for duration)",
+      "unplug/replug",
+      "press 8 and 12 for 3 seconds (descale lights up)",
+      "press K and dump until add water lamp",
+      "fresh water rinses",
+      "this is empty irl but need not be rinse vinegar residue from resevoir",
+      "fill to max w/water",
+      "press K and dump until descale unlights",
+      "[HOW TO TURN DESCALE LIGHT OFF Keurig…",
     ]
   `);
 });
@@ -55,12 +53,10 @@ test("gates", () => {
   expect(note.anchors).toEqual([]);
   expect(note.blocks).toMatchInlineSnapshot(`
     [
-      [
-        "North Gate 1315",
-        "Back 6641",
-        "South 1434",
-        "👉",
-      ],
+      "North Gate 1315",
+      "Back 6641",
+      "South 1434",
+      "👉",
     ]
   `);
 });
@@ -74,18 +70,16 @@ test("shared", () => {
   expect(note.images).toEqual([]);
   expect(note.blocks).toMatchInlineSnapshot(`
     [
-      [
-        "Bird seed",
-        "Outdoor thermometers not small",
-        "White tape for blinds",
-        "Caulk or ?",
-        "Compass",
-        "Scoop large f28, I 10. For dog food and mulch, seed etc",
-        "Target Luxor set ask for shipping??",
-        "Kitchen light?",
-        "Manure/compost/topsoil",
-        "Tablecloth",
-      ],
+      "Bird seed",
+      "Outdoor thermometers not small",
+      "White tape for blinds",
+      "Caulk or ?",
+      "Compass",
+      "Scoop large f28, I 10. For dog food and mulch, seed etc",
+      "Target Luxor set ask for shipping??",
+      "Kitchen light?",
+      "Manure/compost/topsoil",
+      "Tablecloth",
     ]
   `);
 });
@@ -99,12 +93,10 @@ test("list", () => {
   expect(note.images).toEqual([]);
   expect(note.blocks).toMatchInlineSnapshot(`
     [
-      [
-        "Banana",
-        "Extension",
-        "Broach",
-        "Hancock",
-      ],
+      "Banana",
+      "Extension",
+      "Broach",
+      "Hancock",
     ]
   `);
 });
@@ -118,9 +110,7 @@ test("simple", () => {
   expect(note.images).toEqual([]);
   expect(note.blocks).toMatchInlineSnapshot(`
     [
-      [
-        "Play action pass",
-      ],
+      "Play action pass",
     ]
   `);
 });
@@ -138,9 +128,7 @@ test("leveraging_chaos", () => {
   ]);
   expect(note.blocks).toMatchInlineSnapshot(`
     [
-      [
-        "zettelkasten is a system of anarchy for leveraging chaos",
-      ],
+      "zettelkasten is a system of anarchy for leveraging chaos",
     ]
   `);
 });

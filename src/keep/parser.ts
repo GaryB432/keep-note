@@ -1,5 +1,6 @@
 import { stringify } from "@/shared/strings";
-import { parseCommandLine } from "typescript";
+
+type Block = string;
 
 type Image = {
   title?: string | undefined;
@@ -16,7 +17,7 @@ export type Note = {
   // TODO don't need body
   context?: Element; //  the div that was `selected` by a `Select note` button. It contains many children
   title?: string | undefined;
-  blocks: string[][];
+  blocks: Block[];
   anchors: Anchor[];
   images: Image[];
 };
@@ -98,43 +99,55 @@ export function toNote(context: Element): Note {
 
   context
     .querySelectorAll("P[role='presentation']")
-    .forEach((presentation_paragraph) => {
-      // const st = stringify(presentation_paragraph);
-      // const m = st ?? "🤷🏻‍♂️";
-
-      // presentation_paragraph.children;
-      for (const span_or_anchor_child_of_presentation_paragraph of presentation_paragraph.children) {
-        switch (span_or_anchor_child_of_presentation_paragraph.tagName) {
-          case "SPAN": {
-            const plan_rwa_text =
-              span_or_anchor_child_of_presentation_paragraph.textContent;
-            const read_texts = stringify(plan_rwa_text);
-            const clean_span_text = read_texts!;
-            paragraphs_not_lines_need_separation.push(clean_span_text);
-            return;
-          }
-          case "A": {
-            paragraphs_not_lines_need_separation.push(
-              span_or_anchor_child_of_presentation_paragraph.outerHTML.slice(
-                0,
-                100
-              )
-            );
-            // console.log("hmmmm", p_child.outerHTML);
-            break;
-          }
-          default: {
-            throw new Error("fall thru #f9dk4j");
-          }
-        }
-
-        // console.log(p_child.tagName); // Access properties of the child element
-        // Do stuff with child element
+    .forEach((presentation_paragraph_of_spans) => {
+      const { textContent } = presentation_paragraph_of_spans;
+      if (textContent) {
+        const cc = presentation_paragraph_of_spans.childElementCount;
+        paragraphs_not_lines_need_separation.push(
+          stringify(textContent)!
+        );
       }
-
-      // lines.push(stringify(p) ?? "🤷🏻‍♂️");
-      // p.style.border = '1px solid buckwheat'
     });
+
+  // context
+  //   .querySelectorAll("P[role='presentation']")
+  //   .forEach((presentation_paragraph) => {
+  //     // const st = stringify(presentation_paragraph);
+  //     // const m = st ?? "🤷🏻‍♂️";
+
+  //     // presentation_paragraph.children;
+  //     for (const span_or_anchor_child_of_presentation_paragraph of presentation_paragraph.children) {
+  //       switch (span_or_anchor_child_of_presentation_paragraph.tagName) {
+  //         case "SPAN": {
+  //           const plan_rwa_text =
+  //             span_or_anchor_child_of_presentation_paragraph.textContent;
+  //           const read_texts = stringify(plan_rwa_text);
+  //           const clean_span_text = read_texts!;
+  //           paragraphs_not_lines_need_separation.push(clean_span_text);
+  //           return;
+  //         }
+  //         case "A": {
+  //           paragraphs_not_lines_need_separation.push(
+  //             span_or_anchor_child_of_presentation_paragraph.outerHTML.slice(
+  //               0,
+  //               100
+  //             )
+  //           );
+  //           // console.log("hmmmm", p_child.outerHTML);
+  //           break;
+  //         }
+  //         default: {
+  //           throw new Error("fall thru #f9dk4j");
+  //         }
+  //       }
+
+  //       // console.log(p_child.tagName); // Access properties of the child element
+  //       // Do stuff with child element
+  //     }
+
+  //     // lines.push(stringify(p) ?? "🤷🏻‍♂️");
+  //     // p.style.border = '1px solid buckwheat'
+  //   });
 
   const body = "see markdown!";
   return {
@@ -143,6 +156,6 @@ export function toNote(context: Element): Note {
     body,
     title,
     context,
-    blocks: [paragraphs_not_lines_need_separation],
+    blocks: paragraphs_not_lines_need_separation,
   };
 }
