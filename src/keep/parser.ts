@@ -1,4 +1,4 @@
-import { stringify } from "@/shared/strings";
+import { spaces, stringify } from "@/shared/strings";
 
 type Block = string;
 
@@ -71,7 +71,7 @@ export function toNote(context: Element): Note {
   //   throw new Error("error dfo87ad;");
   // }
   let title: string | undefined;
-  const paragraphs_not_lines_need_separation: string[] = [];
+  const blocks: string[] = [];
   const anchors: Anchor[] = [];
   const images: Image[] = [];
 
@@ -101,53 +101,13 @@ export function toNote(context: Element): Note {
     .querySelectorAll("P[role='presentation']")
     .forEach((presentation_paragraph_of_spans) => {
       const { textContent } = presentation_paragraph_of_spans;
+      const sdfdf = stringify(textContent)!;
+      const kids = presentation_paragraph_of_spans.childElementCount;
       if (textContent) {
-        const cc = presentation_paragraph_of_spans.childElementCount;
-        paragraphs_not_lines_need_separation.push(
-          stringify(textContent)!
-        );
+        const ii = indent(kids * 2, sdfdf);
+        blocks.push(ii);
       }
     });
-
-  // context
-  //   .querySelectorAll("P[role='presentation']")
-  //   .forEach((presentation_paragraph) => {
-  //     // const st = stringify(presentation_paragraph);
-  //     // const m = st ?? "🤷🏻‍♂️";
-
-  //     // presentation_paragraph.children;
-  //     for (const span_or_anchor_child_of_presentation_paragraph of presentation_paragraph.children) {
-  //       switch (span_or_anchor_child_of_presentation_paragraph.tagName) {
-  //         case "SPAN": {
-  //           const plan_rwa_text =
-  //             span_or_anchor_child_of_presentation_paragraph.textContent;
-  //           const read_texts = stringify(plan_rwa_text);
-  //           const clean_span_text = read_texts!;
-  //           paragraphs_not_lines_need_separation.push(clean_span_text);
-  //           return;
-  //         }
-  //         case "A": {
-  //           paragraphs_not_lines_need_separation.push(
-  //             span_or_anchor_child_of_presentation_paragraph.outerHTML.slice(
-  //               0,
-  //               100
-  //             )
-  //           );
-  //           // console.log("hmmmm", p_child.outerHTML);
-  //           break;
-  //         }
-  //         default: {
-  //           throw new Error("fall thru #f9dk4j");
-  //         }
-  //       }
-
-  //       // console.log(p_child.tagName); // Access properties of the child element
-  //       // Do stuff with child element
-  //     }
-
-  //     // lines.push(stringify(p) ?? "🤷🏻‍♂️");
-  //     // p.style.border = '1px solid buckwheat'
-  //   });
 
   const body = "see markdown!";
   return {
@@ -156,6 +116,9 @@ export function toNote(context: Element): Note {
     body,
     title,
     context,
-    blocks: paragraphs_not_lines_need_separation,
+    blocks,
   };
+}
+function indent(count: number, text: string): string {
+  return spaces(count).concat(text);
 }
