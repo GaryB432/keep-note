@@ -1,5 +1,5 @@
 import { findNotes, type Note } from "@/keep/parser";
-import { createDocumentFrom } from "@/markdown/factory";
+import { createDocumentFrom, suggestFileNameFor } from "@/markdown/factory";
 import { ExtensionMessage } from "@/messages";
 import { saveFileWithPicker } from "./wicg";
 
@@ -27,8 +27,7 @@ function reload() {
       btn.addEventListener(
         "click",
         (pointerEvent) => {
-          console.log(note.title, "🚨");
-          saveFileWithPicker(md.lines.join("\n"));
+          saveFileWithPicker(md.lines.join("\n"), suggestFileNameFor(note));
           pointerEvent.stopPropagation();
         },
         { once: true },

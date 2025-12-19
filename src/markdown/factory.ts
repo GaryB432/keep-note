@@ -1,9 +1,6 @@
 import { type Note } from "@/keep/parser";
+import { leftWords, stringify } from "@/shared/strings";
 import { MarkdownDocument, MarkdownDocumentOptions } from "./document";
-
-function leftWords(s: string) {
-  return s.slice(0, 75);
-}
 
 export function createDocumentFrom(
   note: Note,
@@ -37,6 +34,12 @@ function makeAnchorLineOk(anchor: {
 }): string {
   return `[${anchor.title ?? anchor.href}](${anchor.href})`;
 }
+
 function makeImageOk(img: { title?: string | undefined; src: string }): string {
   return img.title ?? img.src;
+}
+export function suggestFileNameFor(note: Note): string | undefined {
+  const m = note.title ?? note.blocks[0] ?? "Untitled";
+  const r = stringify(leftWords(m, 80));
+  return r;
 }
