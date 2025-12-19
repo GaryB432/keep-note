@@ -17,6 +17,6 @@ jobs:
         with:
           node-version: 22
           cache: "pnpm"
-      - run: pnpm dlx eslint .
-      - run: pnpm dlx vitest run --coverage
+      - run: pnpx eslint .
+      - run: pnpx vitest run --coverage
       - run: pnpm run build
