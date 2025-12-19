@@ -59,6 +59,6 @@ export default defineConfig(
     extends: ["css/recommended"],
   },
   {
-    ignores: ["**/dist", "tmp"],
+    ignores: ["**/dist", "tmp", "node_modules", "coverage"],
   },
 );

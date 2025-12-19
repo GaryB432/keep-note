@@ -2,11 +2,10 @@ export async function saveFileWithPicker(
   contents: FileSystemWriteChunkType,
   suggestedName?: string,
 ) {
-  console.log(contents);
   try {
     suggestedName ??= someDefaultName();
     const fileHandle = await window.showSaveFilePicker({
-      suggestedName: someDefaultName(),
+      suggestedName,
       types: [
         { description: "Markdown", accept: { "text/x-markdown": ".md" } },
       ],
