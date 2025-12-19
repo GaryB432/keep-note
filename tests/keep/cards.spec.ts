@@ -3,7 +3,6 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { expect, test } from "vitest";
 import { toNote } from "../../src/keep/parser";
-import { describe } from "node:test";
 
 const { JSDOM } = jsdom;
 
