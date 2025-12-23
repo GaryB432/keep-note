@@ -1,12 +1,17 @@
 import type { Note } from "./keep/parser";
 
+export enum MessageAction {
+  GRAB_NOTES_REQUEST = "GRAB_NOTES_REQUEST",
+  GRAB_NOTES_RESPONSE = "GRAB_NOTES_RESPONSE",
+}
+
 export interface GrabNotesMessage {
-  type: "GRAB_NOTES_REQUEST";
-  payload: { info: chrome.tabs.OnUpdatedInfo };
+  type: MessageAction.GRAB_NOTES_REQUEST;
+  payload: { info: chrome.tabs.OnUpdatedInfo; contextHtmls: string[] };
 }
 
 export interface GrabNotesResponseMessage {
-  type: "GRAB_NOTES_SUCCESS";
+  type: MessageAction.GRAB_NOTES_RESPONSE;
   payload: { notes: Note[] };
 }
 
