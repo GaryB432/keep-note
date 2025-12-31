@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { type Note } from "../../src/keep/parser";
-import { createDocumentFrom } from "../../src/markdown/factory";
 import { MarkdownDocumentOptions } from "../../src/markdown/document";
+import { createDocumentFrom } from "../../src/markdown/factory";
 
 const opts: MarkdownDocumentOptions = {
   separator: "<<",
@@ -17,7 +17,7 @@ describe("factory basics", () => {
       images: [],
       blocks: [],
     };
-    const sut = createDocumentFrom(n, opts);
+    const sut = createDocumentFrom(n, opts, true);
     expect(sut.lines.join("\n")).toMatchInlineSnapshot(`"# Blank Document"`);
   });
 
@@ -31,6 +31,7 @@ describe("factory basics", () => {
         images: [],
       },
       opts,
+      true,
     );
     expect(sut.lines).toEqual([
       "# lower case but o well",
@@ -61,6 +62,7 @@ describe("factory basics", () => {
         images: [],
       },
       opts,
+      true,
     );
     expect(sut.lines).toEqual([
       "# Meium-sized documents are examined",

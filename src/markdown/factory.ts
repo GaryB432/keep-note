@@ -5,13 +5,16 @@ import { MarkdownDocument, MarkdownDocumentOptions } from "./document";
 export function createDocumentFrom(
   note: Note,
   opts: MarkdownDocumentOptions = { separator: "" },
+  includeTitle?: boolean,
 ): MarkdownDocument {
   const title =
     note.title ??
     (note.blocks.length > 0 ? leftWords(note.blocks[0]) : "Blank Document");
 
   const doc = new MarkdownDocument(opts);
-  doc.appendHeading(title);
+  if (includeTitle) {
+    doc.appendHeading(title);
+  }
 
   note.blocks.forEach((b) => {
     doc.appendParagraph(b);
