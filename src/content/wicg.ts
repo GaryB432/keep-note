@@ -1,7 +1,7 @@
 export async function saveFileWithPicker(
   contents: FileSystemWriteChunkType,
   suggestedName?: string,
-) {
+): Promise<{ saved: boolean }> {
   try {
     suggestedName ??= someDefaultName();
     const fileHandle = await window.showSaveFilePicker({
@@ -10,19 +10,15 @@ export async function saveFileWithPicker(
         { description: "Markdown", accept: { "text/x-markdown": ".md" } },
       ],
     });
-
-    // Create a writable stream
     const writable = await fileHandle.createWritable();
-
-    // Write the contents
     await writable.write(contents);
-
-    // Close the file and write the contents to disk
     await writable.close();
-    console.log("File saved successfully!");
-  } catch (err) {
-    console.error("Error saving file:", err);
+    return { saved: true };
+  } catch (e) {
+    const err = e as globalThis.Error;
+    console.log(err.name);
   }
+  return { saved: false };
 }
 
 function someDefaultName(): string | undefined {
