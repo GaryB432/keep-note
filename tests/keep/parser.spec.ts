@@ -2,7 +2,8 @@ import { readFileSync } from "fs";
 import jsdom from "jsdom";
 import { join } from "path";
 import { beforeEach, describe, expect, it } from "vitest";
-import { type Note, findNotes } from "../../src/keep/parser";
+import { findArchiveButton, findNotes } from "../../src/keep/parser";
+import type { Note } from "../../src/keep/types";
 
 const { JSDOM } = jsdom;
 
@@ -77,6 +78,19 @@ describe("Parsing S", () => {
     expect(notes.length).toEqual(1);
     const [onlyNote] = notes;
     expect(onlyNote.context!.className).toEqual("context");
+  });
+});
+
+describe("Finders stub", () => {
+  const { JSDOM } = jsdom;
+  const dom = new JSDOM(
+    `<!DOCTYPE html><html><body><p>FUN TESTS</p></body></html>`,
+  );
+
+  const toolbar = dom.window.document.createElement("div");
+
+  it("finds Archive Button", () => {
+    expect(findArchiveButton(toolbar)).toBeDefined();
   });
 });
 

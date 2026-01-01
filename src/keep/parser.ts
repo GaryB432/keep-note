@@ -1,26 +1,12 @@
 import { spaces, stringify } from "@/shared/strings";
+import { Anchor, Image, Note } from "./types";
 
-type Block = string;
-
-type Image = {
-  title?: string | undefined;
-  src: string;
-};
-
-type Anchor = {
-  title?: string | undefined;
-  href: string;
-};
-
-export type Note = {
-  body: "see markdown!";
-  // TODO don't need body
-  context?: Element; //  the div that was `selected` by a `Select note` button. It contains many children
-  title?: string | undefined;
-  blocks: Block[];
-  anchors: Anchor[];
-  images: Image[];
-};
+export function findArchiveButton(toolbar: Element): Element | null {
+  return toolbar.querySelector('[aria-label="Archive"]');
+}
+export function findToolbar(context: Element): Element | null {
+  return context.querySelector('[role="toolbar"]');
+}
 
 export function findNotes(content: HTMLElement): Note[] {
   const select_note_buttons = content.querySelectorAll<Element>(
@@ -50,7 +36,7 @@ export function findNotes(content: HTMLElement): Note[] {
     return toNote(secundo);
   });
 
-  select_button_parents.forEach((p) => (p.style.outline = "3px solid blue"));
+  // select_button_parents.forEach((p) => (p.style.outline = "3px solid blue"));
 
   return notes;
 }
@@ -109,11 +95,9 @@ export function toNote(context: Element): Note {
       }
     });
 
-  const body = "see markdown!";
   return {
     anchors,
     images,
-    body,
     title,
     context,
     blocks,
