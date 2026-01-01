@@ -1,4 +1,4 @@
-import { Note } from "@/keep/parser";
+import { Note } from "@/keep/types";
 
 export class ButtonSet {
   public readonly saveButton: HTMLElement;
@@ -28,4 +28,11 @@ export class ButtonSet {
     button.ariaLabel = "kn ".concat(label);
     button.className = "kn";
   }
+}
+
+export function addClickListener(
+  element: HTMLElement,
+  listener: (ev: MouseEvent) => unknown,
+): void {
+  element.addEventListener("click", listener);
 }

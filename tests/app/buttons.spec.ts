@@ -1,6 +1,6 @@
 import jsdom from "jsdom";
 import { describe, expect, it } from "vitest";
-import { ButtonSet } from "../../src/content/buttons";
+import { ButtonSet } from "../../src/app/buttons";
 
 describe("Buttons stub", () => {
   const { JSDOM } = jsdom;

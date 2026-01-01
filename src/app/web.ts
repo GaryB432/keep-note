@@ -1,3 +1,7 @@
+function someDefaultName(): string | undefined {
+  return `keep-inbox-${new Date().toISOString()}.md`;
+}
+
 export async function saveFileWithPicker(
   contents: FileSystemWriteChunkType,
   suggestedName?: string,
@@ -21,6 +25,13 @@ export async function saveFileWithPicker(
   return { saved: false };
 }
 
-function someDefaultName(): string | undefined {
-  return `keep-inbox-${new Date().toISOString()}.md`;
+export async function copyTextToClipboard(
+  text: string,
+): Promise<{ copied: boolean }> {
+  try {
+    await navigator.clipboard.writeText(text);
+    return { copied: true };
+  } catch {
+    return { copied: false };
+  }
 }

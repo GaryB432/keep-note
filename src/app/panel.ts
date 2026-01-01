@@ -1,10 +1,9 @@
-import { addClickListener } from "@/dom/wrappers";
-import { findArchiveButton } from "@/keep/finders";
-import { ButtonSet } from "./buttons";
+import { findArchiveButton } from "@/keep/parser";
+import { addClickListener, ButtonSet } from "./buttons";
 
 export function insertMarkdownPanel(
   context: Element,
-  sequence: number,
+  _sequence: number,
   buttonSet: ButtonSet,
   saveClickListener: (ev: MouseEvent) => void,
   copyClickListener: (ev: MouseEvent) => void,
