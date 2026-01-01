@@ -1,4 +1,4 @@
-import { type Note } from "@/keep/parser";
+import { type Note } from "@/keep/types";
 import { leftWords, stringify } from "@/shared/strings";
 import { MarkdownDocument, MarkdownDocumentOptions } from "./document";
 
