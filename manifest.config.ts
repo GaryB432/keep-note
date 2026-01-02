@@ -17,15 +17,11 @@ export default defineManifest({
   content_scripts: [
     {
       js: ["src/content/main.ts"],
-      matches: ["https://*/*"],
+      matches: ["https://keep.google.com/*"],
     },
   ],
   permissions: ["sidePanel", "contentSettings", "tabs"],
   side_panel: {
     default_path: "src/sidepanel/index.html",
-  },
-  background: {
-    service_worker: "src/sw.ts",
-    type: "module",
   },
 });

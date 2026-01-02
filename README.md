@@ -26,10 +26,13 @@ npm run build
 
 ## Project Structure
 
-- `src/popup/` - Extension popup UI
-- `src/content/` - Content scripts
-- `src/keep/` - Functions and values for [google-keep](https://support.google.com/keep#topic=6262468) handling
-- `src/markdown/` - Functions and values for markdown handling
+- `src/app/` - Root level modules
+- `src/content/` - Content script modules
+- `src/keep/` - Modules for [Google Keep](https://support.google.com/keep#topic=6262468)
+- `src/markdown/` - Modules for [Markdown](https://github.github.com/gfm/)
+- `src/popup/` - Extension popup modules **UNUSED**
+- `src/shared/` - Shared modules
+- `src/sidepanel/` - **UNUSED**
 - `manifest.config.ts` - Chrome extension manifest configuration
 
 ## Chrome Extension Development Notes

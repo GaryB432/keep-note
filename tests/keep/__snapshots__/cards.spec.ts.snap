@@ -13,7 +13,6 @@ exports[`alpha-bravo 1`] = `
     "    • G - Golf",
     "…",
   ],
-  "body": "see markdown!",
   "images": [],
   "title": "Military Alphabet",
 }
@@ -36,7 +35,6 @@ exports[`descale 1`] = `
     "  press K and dump until descale unlights",
     "[HOW TO TURN DESCALE LIGHT OFF Keurig…",
   ],
-  "body": "see markdown!",
   "images": [],
   "title": "Descale K-Slim w ICED",
 }
@@ -51,7 +49,6 @@ exports[`gates 1`] = `
     "South 1434",
     "👉",
   ],
-  "body": "see markdown!",
   "images": [
     {
       "src": "/u/0/media/v2/1nMcAo%2Faac",
@@ -67,7 +64,6 @@ exports[`leveraging_chaos 1`] = `
   "blocks": [
     "zettelkasten is a system of anarchy for leveraging chaos",
   ],
-  "body": "see markdown!",
   "images": [
     {
       "src": "/u/",
@@ -81,7 +77,6 @@ exports[`media-checklist 1`] = `
 {
   "anchors": [],
   "blocks": [],
-  "body": "see markdown!",
   "images": [],
   "title": undefined,
 }
@@ -102,7 +97,6 @@ exports[`shared 1`] = `
     "Manure/compost/topsoil",
     "Tablecloth",
   ],
-  "body": "see markdown!",
   "images": [],
   "title": "House & suppliess",
 }
@@ -114,7 +108,6 @@ exports[`simple 1`] = `
   "blocks": [
     "Play action pass",
   ],
-  "body": "see markdown!",
   "images": [],
   "title": undefined,
 }
@@ -129,7 +122,6 @@ exports[`simple-list 1`] = `
     "Broach",
     "Hancock",
   ],
-  "body": "see markdown!",
   "images": [],
   "title": undefined,
 }
@@ -146,7 +138,6 @@ exports[`sticking-points 1`] = `
   "blocks": [
     "https://www.psychologytoday.com/blog/the-nature-nurture-nietzsche-blog/201402/the-sticking-point-why-men-still-outnumber-women-in",
   ],
-  "body": "see markdown!",
   "images": [],
   "title": undefined,
 }
