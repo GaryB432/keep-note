@@ -12,6 +12,8 @@ describe("Buttons stub", () => {
     dom.window.document.createElement("div"),
   );
   it("should exist", () => {
+    expect(bs.copyButton.classList.contains("kn")).toBeTruthy();
+    expect(bs.copyButton.classList.contains("file-copy")).toBeTruthy();
     expect(Object.keys(bs)).toEqual([
       "saveButton",
       "copyButton",

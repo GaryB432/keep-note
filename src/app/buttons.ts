@@ -16,10 +16,10 @@ export class ButtonSet {
     this.setup(this.archiveButton, "done-outline");
     this.setup(this.toggleButton, "markdown-copy");
   }
-  private setup(button: HTMLElement, label: string) {
+  private setup(button: HTMLElement, slug: string) {
     button.role = "button";
-    button.ariaLabel = "kn ".concat(label);
-    button.className = "kn";
+    button.className = "kn ".concat(slug);
+    button.ariaLabel = null;
   }
 }
 
