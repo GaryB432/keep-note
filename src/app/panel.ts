@@ -1,5 +1,5 @@
 import { findArchiveButton } from "@/keep/parser";
-import { addClickListener, ButtonSet } from "./buttons";
+import { addClickListener, type ButtonSet } from "./buttons";
 
 export function insertMarkdownPanel(
   context: Element,

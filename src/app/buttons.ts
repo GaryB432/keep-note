@@ -1,4 +1,4 @@
-import { Note } from "@/keep/types";
+import { type Note } from "@/keep/types";
 
 export class ButtonSet {
   public readonly saveButton: HTMLElement;

@@ -1,6 +1,6 @@
 import { type Note } from "@/keep/types";
 import { leftWords, stringify } from "@/shared/strings";
-import { MarkdownDocument, MarkdownDocumentOptions } from "./document";
+import { MarkdownDocument, type MarkdownDocumentOptions } from "./document";
 
 export function createDocumentFrom(
   note: Note,

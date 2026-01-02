@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { type Note } from "../../src/keep/parser";
-import { MarkdownDocumentOptions } from "../../src/markdown/document";
+import { type MarkdownDocumentOptions } from "../../src/markdown/document";
 import { createDocumentFrom } from "../../src/markdown/factory";
 
 const opts: MarkdownDocumentOptions = {
@@ -11,8 +10,7 @@ describe("factory basics", () => {
   const cheer = ["for he is a jolly good fellow", "which nobody can deny"];
 
   it("handles blank document", () => {
-    const n: Note = {
-      body: "see markdown!",
+    const n = {
       anchors: [],
       images: [],
       blocks: [],
@@ -24,7 +22,6 @@ describe("factory basics", () => {
   it("handles S", () => {
     const sut = createDocumentFrom(
       {
-        body: "see markdown!",
         blocks: [...cheer],
         anchors: [],
         title: "lower case but o well",
