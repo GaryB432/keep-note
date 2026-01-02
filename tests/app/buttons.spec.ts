@@ -8,18 +8,8 @@ describe("Buttons stub", () => {
     `<!DOCTYPE html><html><body><p>FUN TESTS</p></body></html>`,
   );
 
-  const saveButton = dom.window.document.createElement("div");
-  const copyButton = dom.window.document.createElement("div");
-  const archiveButton = dom.window.document.createElement("div");
-  const toggleButton = dom.window.document.createElement("div");
-
-  const bs = new ButtonSet(
-    {},
-    0,
-    saveButton,
-    copyButton,
-    archiveButton,
-    toggleButton,
+  const bs = new ButtonSet({}, 0, () =>
+    dom.window.document.createElement("div"),
   );
   it("should exist", () => {
     expect(Object.keys(bs)).toEqual([
