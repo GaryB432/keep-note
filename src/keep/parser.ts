@@ -1,5 +1,5 @@
 import { spaces, stringify } from "@/shared/strings";
-import { Anchor, Image, Note } from "./types";
+import type { Anchor, Image, Note } from "./types";
 
 export function findArchiveButton(toolbar: Element): Element | null {
   return toolbar.querySelector('[aria-label="Archive"]');
@@ -11,14 +11,8 @@ export function findToolbar(context: Element): Element | null {
 export function findNotes(content: HTMLElement): Note[] {
   const select_note_buttons = content.querySelectorAll<Element>(
     'div[data-tooltip-text="Select note"]',
-    // '*:has(> * > [data-tooltip-text="Select note"])'
   );
 
-  if (select_note_buttons.length === 0) {
-    // console.log(`cannot find notes in "${content.outerHTML.slice(0, 400)}..."`);
-    console.log("✅ thanks for playing");
-    return [];
-  }
   const select_button_parents = Array.from<Element>(select_note_buttons)
     .map((e) => e.parentElement!)
     .filter(

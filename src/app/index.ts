@@ -34,10 +34,8 @@ function insertMarkdownAnchor(
 
 function addSaveAffordance(note: Note, sequence: number) {
   if (note.context) {
-    const buttonSet = new ButtonSet(
-      note,
-      sequence,
-      ()=> document.createElement("div")
+    const buttonSet = new ButtonSet(note, sequence, () =>
+      document.createElement("div"),
     );
     const panel = insertMarkdownPanel(
       note.context,
