@@ -39,6 +39,10 @@ export default defineConfig(
         },
       ],
       "no-irregular-whitespace": "error",
+      "@typescript-eslint/explicit-member-accessibility": "warn",
+      "@typescript-eslint/explicit-module-boundary-types": "warn",
+      "@typescript-eslint/member-ordering": "warn",
+      "@typescript-eslint/consistent-type-imports": "warn",
     },
   },
   {
