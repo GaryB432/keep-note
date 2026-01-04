@@ -2,6 +2,7 @@
 
 import css from "@eslint/css";
 import eslint from "@eslint/js";
+import gb from "eslint-plugin-gb";
 import json from "@eslint/json";
 import markdown from "@eslint/markdown";
 import { defineConfig } from "eslint/config";
@@ -19,7 +20,7 @@ export default defineConfig(
       "**/*.cts",
       "**/*.svelte",
     ],
-    extends: [eslint.configs.recommended, ...tseslint.configs.recommended],
+    extends: [eslint.configs.recommended, ...tseslint.configs.recommended, gb.configs.recommended],
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -39,10 +40,6 @@ export default defineConfig(
         },
       ],
       "no-irregular-whitespace": "error",
-      "@typescript-eslint/explicit-member-accessibility": "warn",
-      "@typescript-eslint/explicit-module-boundary-types": "warn",
-      "@typescript-eslint/member-ordering": "warn",
-      "@typescript-eslint/consistent-type-imports": "warn",
     },
   },
   {
