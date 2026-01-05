@@ -8,7 +8,7 @@ import { copyTextToClipboard, saveFileWithPicker } from "./web";
 
 let notes: Note[];
 
-function sequencedIdentifier(sequence: number, _subject: Note) {
+function sequencedIdentifier(sequence: number, _subject: Note): string {
   return `knn${sequence.toFixed(0)}`;
 }
 
@@ -60,7 +60,7 @@ function addSaveAffordance(note: Note, sequence: number) {
   return null;
 }
 
-export function handleNotesHomePage() {
+export function handleNotesHomePage(): void {
   console.log("📁 Mounted Keep Note");
 
   document.head.append(styleElement);
