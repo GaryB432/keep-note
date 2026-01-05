@@ -1,10 +1,11 @@
 import { type Note } from "@/keep/types";
 
 export class ButtonSet {
-  public readonly saveButton: HTMLElement;
-  public readonly copyButton: HTMLElement;
   public readonly archiveButton: HTMLElement;
+  public readonly copyButton: HTMLElement;
+  public readonly saveButton: HTMLElement;
   public readonly toggleButton: HTMLElement;
+
   constructor(_note: Note, _sequence: number, createDiv: () => HTMLDivElement) {
     this.saveButton = createDiv();
     this.copyButton = createDiv();

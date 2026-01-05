@@ -16,10 +16,6 @@ export class MarkdownDocument {
     return last_line === this.opts.separator ? working_lines : this.plainLines;
   }
 
-  public appendParagraph(text: string): void {
-    this.append([text]);
-  }
-
   public appendHeading(text: string, level = 1): void {
     this.append([text], (s) => HASHES.slice(0, level).concat(" ").concat(s));
   }
@@ -31,6 +27,10 @@ export class MarkdownDocument {
         .concat(" ")
         .concat(s),
     );
+  }
+
+  public appendParagraph(text: string): void {
+    this.append([text]);
   }
 
   private append(lines: string[], pre: (s: string) => string = (s) => s): void {

@@ -1,4 +1,4 @@
-import { type Note } from "@/keep/types";
+import { Anchor, Image, type Note } from "@/keep/types";
 import { leftWords, stringify } from "@/shared/strings";
 import { MarkdownDocument, type MarkdownDocumentOptions } from "./document";
 
@@ -31,14 +31,11 @@ export function createDocumentFrom(
   return doc;
 }
 
-function makeAnchorLineOk(anchor: {
-  title?: string | undefined;
-  href: string;
-}): string {
+function makeAnchorLineOk(anchor: Anchor): string {
   return `[${anchor.title ?? anchor.href}](${anchor.href})`;
 }
 
-function makeImageOk(img: { title?: string | undefined; src: string }): string {
+function makeImageOk(img: Image): string {
   return img.title ?? img.src;
 }
 export function suggestFileNameFor(note: Note): string | undefined {
