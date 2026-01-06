@@ -100,3 +100,19 @@ export function toNote(context: Element): Note {
 function indent(count: number, text: string): string {
   return spaces(count).concat(text);
 }
+
+export function findBanner(document: Element): Element | null {
+  const banner = document.querySelector('[role="banner"]');
+  return banner;
+}
+
+export function findHomeAnchor(banner: Element): Element | null {
+  const anchor = banner.querySelectorAll("div > a + div");
+  for (const a of anchor) {
+    console.log(a.outerHTML)
+    if (a.className === "") {
+      return a;
+    }
+  }
+  return null;
+}

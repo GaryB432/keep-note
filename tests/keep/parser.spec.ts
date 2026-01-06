@@ -2,7 +2,12 @@ import { readFileSync } from "fs";
 import jsdom from "jsdom";
 import { join } from "path";
 import { beforeEach, describe, expect, it } from "vitest";
-import { findArchiveButton, findNotes } from "../../src/keep/parser";
+import {
+  findArchiveButton,
+  findBanner,
+  findHomeAnchor,
+  findNotes,
+} from "../../src/keep/parser";
 import type { Note } from "../../src/keep/types";
 
 const { JSDOM } = jsdom;
@@ -16,6 +21,8 @@ const readFixtureHtml = (f: string) =>
 const gramma = readFixtureHtml("gramma");
 
 const box_of_3 = readFixtureHtml("three-contexts");
+
+const headerBanner = readFixtureHtml("banner");
 
 describe("basics", () => {
   it("finds 3", () => {
@@ -91,6 +98,24 @@ describe("Finders stub", () => {
 
   it("finds Archive Button", () => {
     expect(findArchiveButton(toolbar)).toBeDefined();
+  });
+
+  it("finds marker anchor", () => {
+    const j = new JSDOM(
+      `<!DOCTYPE html><html><head></head><body></body></html>`,
+    );
+    const w = j.window;
+
+    const div = w.document.createElement("div");
+    div.innerHTML = headerBanner;
+
+    w.document.body.appendChild(div);
+    const foundBanner = findBanner(w.document.documentElement);
+
+    expect(foundBanner?.tagName).toEqual("HEADER");
+
+    const anchor = findHomeAnchor(foundBanner!);
+    expect(anchor?.textContent).toEqual("🚀");
   });
 });
 
