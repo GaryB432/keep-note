@@ -21,26 +21,27 @@ export function createDocumentFrom(
   });
 
   if (note.images.length > 0) {
-    doc.appendList(note.images.map((m) => makeImageOk(m)));
+    doc.appendList(note.images.map((m) => imageLine(m)));
   }
 
   if (note.anchors.length > 0) {
-    doc.appendList(note.anchors.map((a) => makeAnchorLineOk(a)));
+    doc.appendList(note.anchors.map((a) => anchorLine(a)));
   }
 
   return doc;
 }
 
-function makeAnchorLineOk(anchor: {
+function anchorLine(anchor: {
   title?: string | undefined;
   href: string;
 }): string {
   return `[${anchor.title ?? anchor.href}](${anchor.href})`;
 }
 
-function makeImageOk(img: { title?: string | undefined; src: string }): string {
+function imageLine(img: { title?: string | undefined; src: string }): string {
   return img.title ?? img.src;
 }
+
 export function suggestFileNameFor(note: Note): string | undefined {
   const m = note.title ?? note.blocks[0] ?? "Untitled";
   const r = stringify(leftWords(m, 80));

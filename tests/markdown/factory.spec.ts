@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { type MarkdownDocumentOptions } from "../../src/markdown/document";
-import { createDocumentFrom } from "../../src/markdown/factory";
+import {
+  suggestFileNameFor,
+  createDocumentFrom,
+} from "../../src/markdown/factory";
 
 const opts: MarkdownDocumentOptions = {
   separator: "<<",
@@ -8,6 +11,22 @@ const opts: MarkdownDocumentOptions = {
 
 describe("factory basics", () => {
   const cheer = ["for he is a jolly good fellow", "which nobody can deny"];
+
+  it("sggests name", () => {
+    const sut = suggestFileNameFor({
+      blocks: [...cheer],
+      anchors: [6, 8].map((n) => ({
+        href: `go:${n.toFixed(5)}`,
+        title: `click for ${n.toExponential(2)}`,
+      })),
+      title: "lower case but o well",
+      images: [6, 8].map((n) => ({
+        src: `go:${n.toFixed(5)}`,
+        title: `click to see ${n.toString()}`,
+      })),
+    });
+    expect(sut).toEqual("lower case but o well");
+  });
 
   it("handles blank document", () => {
     const n = {
@@ -44,6 +63,38 @@ describe("factory basics", () => {
     //   <<
     //   which nobody can deny"
     // `);
+  });
+
+  it("handles additional stuff", () => {
+    const sut = createDocumentFrom(
+      {
+        blocks: [...cheer],
+        anchors: [6, 8].map((n) => ({
+          href: `go:${n.toFixed(5)}`,
+          title: `click for ${n.toExponential(2)}`,
+        })),
+        title: "lower case but o well",
+        images: [6, 8].map((n) => ({
+          src: `go:${n.toFixed(5)}`,
+          title: `click to see ${n.toString()}`,
+        })),
+      },
+      opts,
+      true,
+    );
+    expect(sut.lines).toEqual([
+      "# lower case but o well",
+      "<<",
+      "for he is a jolly good fellow",
+      "<<",
+      "which nobody can deny",
+      "<<",
+      "   - click to see 6",
+      "   - click to see 8",
+      "<<",
+      "   - [click for 6.00e+0](go:6.00000)",
+      "   - [click for 8.00e+0](go:8.00000)",
+    ]);
   });
 
   it("handles M", () => {
