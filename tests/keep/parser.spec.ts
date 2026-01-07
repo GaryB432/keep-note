@@ -115,7 +115,15 @@ describe("Finders stub", () => {
     expect(foundBanner?.tagName).toEqual("HEADER");
 
     const anchor = findHomeAnchor(foundBanner!);
-    expect(anchor?.textContent).toEqual("🚀");
+
+    expect(anchor?.tagName).toEqual("DIV");
+    expect(anchor?.childElementCount).toEqual(1);
+    expect(anchor?.children.item(0)?.tagName).toEqual("DIV");
+    expect(anchor?.children.item(0)?.childElementCount).toEqual(1);
+    expect(anchor?.children.item(0)?.children.item(0)?.tagName).toEqual("A");
+    expect(
+      anchor?.children.item(0)?.children.item(0)?.getAttribute("HREF"),
+    ).toEqual("#");
   });
 });
 

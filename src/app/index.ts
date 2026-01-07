@@ -20,8 +20,13 @@ function sequencedIdentifier(sequence: number, _subject: Note) {
 function markBanner() {
   const banner = findBanner(document.body);
   const homeAnchor = banner && findHomeAnchor(banner);
-  if (homeAnchor && homeAnchor.textContent === "") {
-    homeAnchor.insertAdjacentHTML("beforeend", "🚀");
+
+  if (homeAnchor) {
+    if (homeAnchor.childElementCount !== 1) {
+      console.log(homeAnchor?.outerHTML, homeAnchor?.childElementCount);
+      throw new Error("unexpected homeAnchor");
+    }
+    homeAnchor.insertAdjacentHTML("beforeend", '<div class="kn mark">🚀</div>');
   }
 }
 

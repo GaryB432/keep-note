@@ -1,8 +1,4 @@
-// import { handleNotesHomePage } from "@/app";
-
 import { handleNotesHomePage } from "@/app";
-
-let count = -1;
 
 // const observer = new MutationObserver((_, obs) => {
 
@@ -16,7 +12,6 @@ let count = -1;
 
 // observer.observe(document.body, { childList: true, subtree: true });
 
-setInterval(() => {
-  const c = handleNotesHomePage();
-
-}, 5000);
+setTimeout(() => {
+  handleNotesHomePage();
+}, 2000);
