@@ -107,12 +107,42 @@ export function findBanner(document: Element): Element | null {
 }
 
 export function findHomeAnchor(banner: Element): Element | null {
-  const anchor = banner.querySelectorAll("div > a + div");
-  for (const a of anchor) {
-    console.log(a.outerHTML)
-    if (a.className === "") {
-      return a;
-    }
+  // const anchor = banner.querySelectorAll("div > a + div");
+  // const anchors = banner.querySelectorAll('a[href="#"]');
+  // const anchors = banner.querySelectorAll('div:has(a[href="#"])');
+  // const anchors = banner.querySelectorAll('div + div');
+  // const anchors = banner.querySelectorAll('div:nth-child(2)');
+  // const anchors = banner.querySelectorAll(
+  //   "div:has(> div:nth-child(5)):has(> div:last-child):not(:has(> :not(div)))",
+  // );
+  // for (const a of anchors) {
+  //   console.log(stringify(a.outerHTML.slice(0, 6000)));
+  //   // if (a.className === "") {
+  //   //   return a;
+  //   // }
+  // }
+
+  if (banner.childElementCount !== 3) throw new Error("not 3");
+  // const the_one_with_the_thing = banner.children.item(1);
+  const leftPart = banner.children.item(1)?.firstElementChild;
+  if (leftPart?.childElementCount !== 5) throw new Error("not 5");
+  const div_with_div_with_image = leftPart.children.item(3);
+  console.log(div_with_div_with_image?.outerHTML);
+
+  let ha: Element | null = div_with_div_with_image?.children.item(1) ?? null;
+
+  if (!ha) {
+    console.log('inserting anchor')
+    ha = document.createElement("div");
+    ha.textContent = "@";
+    div_with_div_with_image?.append(ha);
   }
-  return null;
+
+  // if (div_with_div_with_image?.childElementCount === 1){
+  //   // only the div button is here.
+  //   ha = document.createElement("div")
+  //   div_with_div_with_image.append(ha);
+  // }
+
+  return ha;
 }
