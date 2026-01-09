@@ -13,7 +13,7 @@ import { copyTextToClipboard, saveFileWithPicker } from "./web";
 
 let notes: Note[];
 
-function sequencedIdentifier(sequence: number, _subject: Note) {
+function sequencedIdentifier(sequence: number, _subject: Note): string {
   return `knn${sequence.toFixed(0)}`;
 }
 
