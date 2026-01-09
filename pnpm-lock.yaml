@@ -42,8 +42,8 @@ importers:
         specifier: ^9.39.2
         version: 9.39.2
       eslint-plugin-gb:
-        specifier: ^9.2.0
-        version: 9.2.0(eslint@9.39.2)
+        specifier: ^9.2.1
+        version: 9.2.1(eslint@9.39.2)
       globals:
         specifier: ^16.5.0
         version: 16.5.0
@@ -848,8 +848,8 @@ packages:
     resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
     engines: {node: '>=12'}
 
-  eslint-plugin-gb@9.2.0:
-    resolution: {integrity: sha512-tA0/rt2HwLTrv1KIYzm5soWRjq61a6xh1XY+os7uYj2OWFnrFyppNhAQE4kDvWc/45EzQmGP4nlp0zuG6aJSiQ==}
+  eslint-plugin-gb@9.2.1:
+    resolution: {integrity: sha512-QtnbxgqOj3icjkjQ5dqM25w3Ey55E8ic5Tfgf95/ypNvUeT7GgKwBzmo2Pca8TWpLD2oCgZvITfYTu0TRrSXDQ==}
     peerDependencies:
       eslint: ^9.9.0
 
@@ -2454,7 +2454,7 @@ snapshots:
 
   escape-string-regexp@5.0.0: {}
 
-  eslint-plugin-gb@9.2.0(eslint@9.39.2):
+  eslint-plugin-gb@9.2.1(eslint@9.39.2):
     dependencies:
       eslint: 9.39.2
 
