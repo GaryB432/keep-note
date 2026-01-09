@@ -19,7 +19,7 @@
     "@types/wicg-file-system-access": "^2023.10.7",
     "@vitest/coverage-v8": "^4.0.16",
     "eslint": "^9.39.2",
-    "eslint-plugin-gb": "^9.2.0",
+    "eslint-plugin-gb": "^9.2.1",
     "globals": "^16.5.0",
     "jsdom": "^27.3.0",
     "typescript": "~5.8.3",

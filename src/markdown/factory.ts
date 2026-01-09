@@ -1,4 +1,4 @@
-import { Anchor, Image, type Note } from "@/keep/types";
+import { type Note } from "@/keep/types";
 import { leftWords, stringify } from "@/shared/strings";
 import { MarkdownDocument, type MarkdownDocumentOptions } from "./document";
 
@@ -21,23 +21,27 @@ export function createDocumentFrom(
   });
 
   if (note.images.length > 0) {
-    doc.appendList(note.images.map((m) => makeImageOk(m)));
+    doc.appendList(note.images.map((m) => imageLine(m)));
   }
 
   if (note.anchors.length > 0) {
-    doc.appendList(note.anchors.map((a) => makeAnchorLineOk(a)));
+    doc.appendList(note.anchors.map((a) => anchorLine(a)));
   }
 
   return doc;
 }
 
-function makeAnchorLineOk(anchor: Anchor): string {
-  return `[${anchor.title ?? anchor.href}](${anchor.href})`;
+function anchorLine(anchor: {
+  href: string;
+  title?: string | undefined;
+}): string {
+  return `[${anchor.title ?? new URL(anchor.href).hostname}](${anchor.href})`;
 }
 
-function makeImageOk(img: Image): string {
-  return img.title ?? img.src;
+function imageLine(img: { src: string; title?: string | undefined }): string {
+  return `${img.title ?? "img"} ${`_${img.src}_`}`;
 }
+
 export function suggestFileNameFor(note: Note): string | undefined {
   const m = note.title ?? note.blocks[0] ?? "Untitled";
   const r = stringify(leftWords(m, 80));

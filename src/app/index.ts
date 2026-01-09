@@ -1,5 +1,10 @@
 import { addClickListener, ButtonSet } from "@/app/buttons";
-import { findNotes, findToolbar } from "@/keep/parser";
+import {
+  findBanner,
+  findHomeAnchor,
+  findNotes,
+  findToolbar,
+} from "@/keep/parser";
 import type { Note } from "@/keep/types";
 import { createDocumentFrom, suggestFileNameFor } from "@/markdown/factory";
 import { insertMarkdownPanel } from "./panel";
@@ -13,8 +18,16 @@ function sequencedIdentifier(sequence: number, _subject: Note): string {
 }
 
 function markBanner() {
-  const banner = document.querySelectorAll("body > div");
-  console.log(banner.item(0).tagName, "he been here");
+  const banner = findBanner(document.body);
+  const homeAnchor = banner && findHomeAnchor(banner);
+
+  if (homeAnchor) {
+    if (homeAnchor.childElementCount !== 1) {
+      console.log(homeAnchor?.outerHTML, homeAnchor?.childElementCount);
+      throw new Error("unexpected homeAnchor");
+    }
+    homeAnchor.insertAdjacentHTML("beforeend", '<div class="kn mark">🚀</div>');
+  }
 }
 
 function insertMarkdownAnchor(
@@ -60,15 +73,12 @@ function addSaveAffordance(note: Note, sequence: number) {
   return null;
 }
 
-export function handleNotesHomePage(): void {
+export function handleNotesHomePage(): number {
   console.log("📁 Mounted Keep Note");
 
   document.head.append(styleElement);
 
   notes = findNotes(document.documentElement);
-
-  const panelsContainer = document.createElement("div");
-  document.body.append(panelsContainer);
 
   notes.forEach((note, sequence) => {
     if (note.context) {
@@ -80,4 +90,5 @@ export function handleNotesHomePage(): void {
     }
   });
   markBanner();
+  return notes.length;
 }

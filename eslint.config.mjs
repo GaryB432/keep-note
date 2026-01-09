@@ -20,7 +20,11 @@ export default defineConfig(
       "**/*.cts",
       "**/*.svelte",
     ],
-    extends: [eslint.configs.recommended, ...tseslint.configs.recommended, gb.configs.recommended],
+    extends: [
+      eslint.configs.recommended,
+      ...tseslint.configs.recommended,
+      gb.configs.recommended,
+    ],
     languageOptions: {
       globals: {
         ...globals.browser,
