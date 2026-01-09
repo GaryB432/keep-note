@@ -21,7 +21,7 @@ describe("factory basics", () => {
       })),
       title: "lower case but o well",
       images: [6, 8].map((n) => ({
-        src: `go:${n.toFixed(5)}`,
+        src: `image src: ${n.toFixed(5)}`,
         title: `click to see ${n.toString()}`,
       })),
     });
@@ -70,13 +70,13 @@ describe("factory basics", () => {
       {
         blocks: [...cheer],
         anchors: [6, 8].map((n) => ({
-          href: `go:${n.toFixed(5)}`,
-          title: `click for ${n.toExponential(2)}`,
+          href: `https://${n}`,
+          title: `click for anchor ${n}`,
         })),
         title: "lower case but o well",
         images: [6, 8].map((n) => ({
-          src: `go:${n.toFixed(5)}`,
-          title: `click to see ${n.toString()}`,
+          src: `imgur/wg/${n}`,
+          title: `an image ${n} title`,
         })),
       },
       opts,
@@ -89,18 +89,17 @@ describe("factory basics", () => {
       "<<",
       "which nobody can deny",
       "<<",
-      "   - click to see 6",
-      "   - click to see 8",
+      "   - an image 6 title _imgur/wg/6_",
+      "   - an image 8 title _imgur/wg/8_",
       "<<",
-      "   - [click for 6.00e+0](go:6.00000)",
-      "   - [click for 8.00e+0](go:8.00000)",
+      "   - [click for anchor 6](https://6)",
+      "   - [click for anchor 8](https://8)",
     ]);
   });
 
   it("handles M", () => {
     const sut = createDocumentFrom(
       {
-        body: "see markdown!",
         blocks: [...cheer, "  starting at 3"],
         anchors: [
           { href: "https://boring.example.com" },
@@ -121,7 +120,7 @@ describe("factory basics", () => {
       "<<",
       "  starting at 3",
       "<<",
-      "   - [https://boring.example.com](https://boring.example.com)",
+      "   - [boring.example.com](https://boring.example.com)",
       "   - [fun page](https://fun.example.com)",
     ]);
   });
