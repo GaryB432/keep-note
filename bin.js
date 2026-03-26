@@ -6,7 +6,6 @@ import { digest } from "./lib/keep/reader.js";
 
 const cli = cac("keep-note");
 
-
 cli
   .option("-v, --verbose", "Output extra information")
   .option("-d, --dryRun", "Make no changes to disk")
@@ -50,7 +49,9 @@ cli
 cli
   .command("takeout [dir]", "Created GFM Documents from Google Takeout")
   .action(async (dir, options) => {
-    void await digest(dir)
+    const m = await digest(dir);
+    console.log(m.map((f) => f.color));
+
     // const nameInput = name ?? (await text({ message: "What is your name?" }));
     // if (isCancel(nameInput)) {
     //   cancel("Cancelled.");
@@ -61,3 +62,33 @@ cli
   });
 
 cli.parse();
+
+const m = [
+  {
+    color: "DEFAULT",
+    isTrashed: false,
+    isPinned: false,
+    isArchived: false,
+    textContent: "Open cell ID",
+    title: "",
+    userEditedTimestampUsec: 1763754124984000,
+    createdTimestampUsec: 1763754124984000,
+    textContentHtml: `<p dir="ltr" style="line-height:1.38;margin-top:0.0pt;margin-bottom:0.0pt;"><span style="font-size:7.2pt;font-family:'Google Sans';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Open cell ID</span></p>`,
+  },
+  {
+    color: "DEFAULT",
+    isTrashed: false,
+    isPinned: false,
+    isArchived: true,
+    textContent:
+      "Steve Gibson was talking about the reporters who left Russia and moved to Europe because they were not allowed to report you know honestly or quote on quote but was is it always bad the journalists The forbidden from reporting certain destructive or degenerate things\n" +
+      "\n" +
+      "there is much to think about here\n" +
+      "\n" +
+      "thanks for your thoughts gar",
+    title: "",
+    userEditedTimestampUsec: 1764095324187000,
+    createdTimestampUsec: 1763666278014000,
+    textContentHtml: `<p dir="ltr" style="line-height:1.38;margin-top:0.0pt;margin-bottom:0.0pt;"><span style="font-size:7.2pt;font-family:'Google Sans';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Steve Gibson was talking about the reporters who left Russia and moved to Europe because they were not allowed to report you know honestly or quote on quote but was is it always bad the journalists The forbidden from reporting certain destructive or degenerate things</span></p><br /><p dir="ltr" style="line-height:1.38;margin-top:0.0pt;margin-bottom:0.0pt;"><span style="font-size:7.2pt;font-family:'Google Sans';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">there is much to think about here</span></p><br /><p dir="ltr" style="line-height:1.38;margin-top:0.0pt;margin-bottom:0.0pt;"><span style="font-size:7.2pt;font-family:'Google Sans';color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">thanks for your thoughts gar</span></p>`,
+  },
+];
