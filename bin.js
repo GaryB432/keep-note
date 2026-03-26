@@ -2,7 +2,7 @@
 // @ts-check
 import { cancel, isCancel, log, select, text } from "@clack/prompts";
 import { cac } from "cac";
-import { digest } from "./lib/keep/reader.js";
+import { digest } from "./lib/google/keep.mjs";
 
 const cli = cac("keep-note");
 
@@ -49,8 +49,23 @@ cli
 cli
   .command("takeout [dir]", "Created GFM Documents from Google Takeout")
   .action(async (dir, options) => {
-    const m = await digest(dir);
-    console.log(m.map((f) => f.color));
+    const nns = await digest(dir);
+    const nnt = nns.map((n) =>
+      n.title ?? n.textContent
+        .concat(" there>")
+        .concat(new Date(n.createdTimestampUsec).toISOString()),
+    );
+    log.message(nnt);
+    // for (const note of await digest(dir)) {
+    //   // log.message(note);
+    // }
+    // console.log(
+    //   JSON.stringify(
+    //     m.map((q) => ({ f: q.title })),
+    //     undefined,
+    //     6,
+    //   ),
+    // );
 
     // const nameInput = name ?? (await text({ message: "What is your name?" }));
     // if (isCancel(nameInput)) {

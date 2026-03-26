@@ -1,4 +1,12 @@
+type Annotation = {
+  description: string;
+  source: "WEBLINK";
+  title: string;
+  url: string;
+};
+
 export type Note = {
+  annotations?: Annotation[];
   color: string;
   isTrashed: boolean;
   isArchived: boolean;
