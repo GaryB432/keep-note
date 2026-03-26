@@ -1,0 +1,15 @@
+{
+  "name": "@keep-note/cli",
+  "version": "0.0.0",
+  "type": "module",
+  "bin": {
+    "keep-note": "./bin.js"
+  },
+  "scripts": {
+    "start": "node bin.js"
+  },
+  "dependencies": {
+    "cac": "^6.7.14",
+    "@clack/prompts": "^1.0.0"
+  }
+}
