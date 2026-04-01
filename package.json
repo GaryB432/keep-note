@@ -1,15 +1,38 @@
 {
-  "name": "@keep-note/cli",
-  "version": "0.0.0",
+  "name": "keep-note",
+  "version": "0.1.0",
   "type": "module",
   "bin": {
-    "keep-note": "./bin.js"
+    "keep-note": "./bin.ts"
+  },
+  "engines": {
+    "node": ">=24"
   },
   "scripts": {
-    "start": "node bin.js"
+    "test": "node --test",
+    "dev": "node ./bin.ts"
   },
   "dependencies": {
+    "@clack/prompts": "^0.7.0",
     "cac": "^6.7.14",
-    "@clack/prompts": "^1.0.0"
+    "glob": "^13.0.5",
+    "toml": "^3.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@eslint/json": "^1.2.0",
+    "@eslint/markdown": "^8.0.0",
+    "@types/node": "^25.5.0",
+    "ansis": "^4.2.0",
+    "eslint": "^10.1.0",
+    "eslint-plugin-perfectionist": "^5.7.0",
+    "globals": "^17.4.0",
+    "typescript": "^6.0.2",
+    "typescript-eslint": "^8.57.2",
+    "vitest": "^4.1.2"
+  },
+  "packageManager": "pnpm@10.28.2",
+  "imports": {
+    "#lib/*": "./lib/*.ts"
   }
 }
