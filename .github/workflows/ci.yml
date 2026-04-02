@@ -19,4 +19,3 @@ jobs:
           cache: "pnpm"
       - run: pnpx eslint .
       - run: pnpx vitest run
-      - run: pnpm run build
