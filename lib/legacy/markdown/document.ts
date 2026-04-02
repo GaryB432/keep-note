@@ -3,18 +3,18 @@ const HASHES = "######";
 const SPACES = "      ";
 
 export interface MarkdownDocumentOptions {
-  separator: "<<" | "";
+  separator: "" | "<<";
 }
 
 export class MarkdownDocument {
-  private readonly plainLines: string[] = [];
-  constructor(private opts: MarkdownDocumentOptions) {}
-
   get lines(): string[] {
     const working_lines = [...this.plainLines];
     const last_line = working_lines.pop();
     return last_line === this.opts.separator ? working_lines : this.plainLines;
   }
+  private readonly plainLines: string[] = [];
+
+  constructor(private opts: MarkdownDocumentOptions) {}
 
   public appendHeading(text: string, level = 1): void {
     this.append([text], (s) => HASHES.slice(0, level).concat(" ").concat(s));
