@@ -1,26 +1,25 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "moduleDetection": "force",
-    "lib": ["esnext", "DOM", "DOM.Iterable"],
     "useDefineForClassFields": true,
-    "baseUrl": ".",
     "module": "ESNext",
-    "moduleResolution": "bundler",
-    "paths": {
-      "@/*": ["src/*"]
-    },
-    "types": ["vite/client", "@types/wicg-file-system-access", "chrome"],
-    "allowImportingTsExtensions": true,
-    "strict": true,
-    "noFallthroughCasesInSwitch": true,
-    // "noUnusedLocals": true,
-    // "noUnusedParameters": true,
-
-    "noEmit": true,
-    "isolatedModules": true,
+    "lib": ["esnext"],
+    // "types": ["vite/client"],
     "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
-  },
-  "include": ["src"]
+  }
 }

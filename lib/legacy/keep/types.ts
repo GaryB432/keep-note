@@ -1,10 +1,10 @@
+export type ΘAnchor = {
+  href: string;
+  title?: string | undefined;
+};
 export type ΘBlock = string;
 export type ΘImage = {
   src: string;
-  title?: string | undefined;
-};
-export type ΘAnchor = {
-  href: string;
   title?: string | undefined;
 };
 export type ΘNote = {

@@ -12,12 +12,22 @@ export class MarkdownDocument {
     const last_line = working_lines.pop();
     return last_line === this.opts.separator ? working_lines : this.plainLines;
   }
+  private opts: MarkdownDocumentOptions;
   private readonly plainLines: string[] = [];
+  constructor(opts: MarkdownDocumentOptions = { separator: "" }) {
+    this.opts = opts;
+  }
 
-  constructor(private opts: MarkdownDocumentOptions) {}
+  public appendCode(lines: string[], language?: string): void {
+    this.append(["```".concat(language ?? ""), ...lines, "```"]);
+  }
 
   public appendHeading(text: string, level = 1): void {
     this.append([text], (s) => HASHES.slice(0, level).concat(" ").concat(s));
+  }
+
+  public appendHorizontalRule() {
+    this.append(["", "---", ""]);
   }
 
   public appendList(lines: string[], numbered = false, level = 1): void {
