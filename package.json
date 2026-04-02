@@ -23,6 +23,7 @@
     "@eslint/json": "^1.2.0",
     "@eslint/markdown": "^8.0.0",
     "@types/node": "^25.5.0",
+    "@vitest/coverage-v8": "4.1.2",
     "ansis": "^4.2.0",
     "eslint": "^10.1.0",
     "eslint-plugin-perfectionist": "^5.7.0",
