@@ -3,6 +3,7 @@ import { log as frog, isCancel, note, text } from "@clack/prompts";
 import { bold, cyan, dim, green, underline, yellow } from "ansis";
 import { glob, mkdir, readFile, writeFile } from "node:fs/promises";
 import { join, parse } from "node:path";
+
 import type { GlobalOptions, Note } from "./types";
 
 export function add(a: number, b: number): number {
