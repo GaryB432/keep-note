@@ -4,7 +4,7 @@
     "useDefineForClassFields": true,
     "module": "ESNext",
     "lib": ["esnext"],
-    // "types": ["vite/client"],
+    "types": ["node"],
     "skipLibCheck": true,
 
     /* Bundler mode */
