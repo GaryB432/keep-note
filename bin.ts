@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { takeoutCommand } from "#lib/keep/takeout";
-import { intro } from "@clack/prompts";
+import { takeoutCommand, displayTakeoutInstructions } from "#lib/keep/takeout";
+import { intro, outro } from "@clack/prompts";
 import { blue } from "ansis";
 import { cac } from "cac";
 
@@ -16,6 +16,10 @@ cli
     "Create Markdown documents from Google Keep Takeout",
   )
   .option("-o, --outDir [outDir]", "Output Directory for Markdown Content")
+  .example(
+    (bin) =>
+      `${bin} takeout ~/takeout-latest --outDir /media/pkb-markdown/stage`,
+  )
   .action(takeoutCommand);
 
 cli.help();
@@ -23,4 +27,10 @@ cli.version(pkg.version);
 
 intro(blue(cli.name));
 
-cli.parse();
+const args = cli.parse(process.argv, { run: false });
+displayTakeoutInstructions();
+if (args.args.length && cli.matchedCommand) {
+  cli.runMatchedCommand();
+} else {
+  cli.outputHelp();
+}

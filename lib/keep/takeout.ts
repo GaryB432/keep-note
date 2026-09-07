@@ -1,9 +1,8 @@
 import { createSingleDocument } from "#lib/app/summarizer";
 import { log as frog, isCancel, note, text } from "@clack/prompts";
-import { cyan, green, yellow } from "ansis";
-import { glob, readFile, writeFile } from "node:fs/promises";
+import { bold, cyan, dim, green, underline, yellow } from "ansis";
+import { glob, mkdir, readFile, writeFile } from "node:fs/promises";
 import { join, parse } from "node:path";
-
 import type { GlobalOptions, Note } from "./types";
 
 export function add(a: number, b: number): number {
@@ -14,6 +13,23 @@ export function greet(name: string): string {
 }
 export const meaning: { life: number } = {
   life: 42,
+};
+
+export const displayTakeoutInstructions = () => {
+  frog.info(`
+${bold.cyan("How to get your Google Keep Takeout file:")}
+
+1. Go to ${underline.blue("https://google.com")}
+2. Click ${yellow('"Deselect all"')} at the top of the list.
+3. Scroll down, find ${green("Keep")}, and check its box.
+4. Scroll to the bottom and click ${bold("Next step")}.
+5. Configure the export settings:
+   • ${dim("Destination:")} Send download link via email
+   • ${dim("Frequency:")} Export once
+   • ${dim("File type:")} .tgz
+6. Click ${bold.green("Create export")}.
+7. Download the archive when the email arrives.
+  `);
 };
 
 export type TakeoutOptions = GlobalOptions & {
@@ -54,39 +70,49 @@ export async function takeoutCommand(
         ...opttions,
       }));
 
-    if (!isCancel(outDir)) {
-      const notes = await digest(path);
-
-      const labelsSummary = Object.entries(countNotesByLabel(notes)).map(
-        ([k, v]) => {
-          const lhs = cyan(k).padEnd(26, ".");
-          const rhs = yellow(v.toString()).padStart(16, ".");
-          return `${lhs}${rhs}`;
-        },
-      );
-
-      const doc = await createSingleDocument(
-        notes,
-        path,
-        outDir,
-        opttions.interactive ?? true,
-      );
-      if (opttions.dryRun) {
-        frog.warn(`Dry Run. ${yellow(outDir)} not written.`);
-      } else {
-        await writeFile(join(outDir, "summary.md"), doc.lines.join("\n"));
-        frog.success(`Finished. ${green(outDir)} written.`);
-      }
-      // note(
-      //   m.lines.join("\n"),
-      //   "Markdown",
-      // );
-
-      note(
-        labelsSummary.join("\n"),
-        "Process Summary", // This is the title of the note
-      );
+    if (isCancel(outDir)) {
+      return;
     }
+
+    const summaryFilePath = join(outDir, "summary.md");
+
+    const newFolder = await mkdir(outDir, { recursive: true });
+
+    if (newFolder) {
+      frog.info(`${outDir} was created`);
+    }
+
+    const notes = await digest(path);
+
+    const labelsSummary = Object.entries(countNotesByLabel(notes)).map(
+      ([k, v]) => {
+        const lhs = cyan(k).padEnd(26, ".");
+        const rhs = yellow(v.toString()).padStart(16, ".");
+        return `${lhs}${rhs}`;
+      },
+    );
+
+    const doc = await createSingleDocument(
+      notes,
+      path,
+      outDir,
+      opttions.interactive ?? true,
+    );
+    if (opttions.dryRun) {
+      frog.warn(`Dry Run. ${yellow(outDir)} not written.`);
+    } else {
+      await writeFile(summaryFilePath, doc.lines.join("\n"));
+      frog.success(`Finished. ${green(summaryFilePath)} written.`);
+    }
+    // note(
+    //   m.lines.join("\n"),
+    //   "Markdown",
+    // );
+
+    note(
+      labelsSummary.join("\n"),
+      "Process Summary", // This is the title of the note
+    );
   }
 }
 
