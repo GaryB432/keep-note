@@ -1,8 +1,9 @@
-import { createSingleDocument } from "#lib/app/summarizer";
 import { log as frog, isCancel, note, text } from "@clack/prompts";
 import { bold, cyan, dim, green, underline, yellow } from "ansis";
 import { glob, mkdir, readFile, writeFile } from "node:fs/promises";
 import { join, parse } from "node:path";
+
+import { createSingleDocument } from "#lib/app/summarizer";
 
 import type { GlobalOptions, Note } from "./types";
 
@@ -28,8 +29,9 @@ ${bold.cyan("How to get your Google Keep Takeout file:")}
    • ${dim("Destination:")} Send download link via email
    • ${dim("Frequency:")} Export once
    • ${dim("File type:")} .tgz
-6. Click ${bold.green("Create export")}.
-7. Download the archive when the email arrives.
+   6. Click ${bold.green("Create export")}.
+   7. Download the archive when the email arrives.
+   • It will contain a ${bold.green("Takeout/Keep")} folder
   `);
 };
 

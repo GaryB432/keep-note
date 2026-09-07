@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-import { displayTakeoutInstructions, takeoutCommand } from "#lib/keep/takeout";
 import { intro } from "@clack/prompts";
 import { blue } from "ansis";
 import { cac } from "cac";
+
+import { displayTakeoutInstructions, takeoutCommand } from "#lib/keep/takeout";
 
 import pkg from "./package.json" with { type: "json" };
 

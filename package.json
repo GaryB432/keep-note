@@ -10,6 +10,7 @@
   },
   "scripts": {
     "test": "node --test",
+    "lint": "pnpm eslint .",
     "dev": "node ./bin.ts"
   },
   "dependencies": {
