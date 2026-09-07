@@ -13,6 +13,6 @@ export default defineConfig([
   },
   tseslint.configs.recommended,
   {
-    rules: { "@typescript-eslint/no-unused-vars": "off" },
+    rules: { "@typescript-eslint/no-unused-vars": "warn" },
   },
 ]);

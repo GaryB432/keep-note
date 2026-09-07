@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { displayTakeoutInstructions, takeoutCommand } from "#lib/keep/takeout";
-import { intro, outro } from "@clack/prompts";
+import { intro } from "@clack/prompts";
 import { blue } from "ansis";
 import { cac } from "cac";
 
