@@ -10,12 +10,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: pnpm/action-setup@v4
-        with:
-          run_install: true
+
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: "pnpm"
-      - run: pnpx eslint .
-      - run: pnpx vitest run
+
+      # Install after cache is restored and Node 24 is loaded
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm run lint
+      - run: pnpm run test
