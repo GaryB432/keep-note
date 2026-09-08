@@ -1,6 +1,6 @@
-// TODO better
 const HASHES = "######";
 const SPACES = "      ";
+const FENCE = "```";
 
 export interface MarkdownDocumentOptions {
   separator: "" | "<<";
@@ -19,7 +19,7 @@ export class MarkdownDocument {
   }
 
   public appendCode(lines: string[], language?: string): void {
-    this.append(["```".concat(language ?? ""), ...lines, "```"]);
+    this.append([FENCE.concat(language ?? ""), ...lines, FENCE]);
   }
 
   public appendHeading(text: string, level = 1): void {
@@ -86,6 +86,6 @@ function detectBlockType(line: string, opts: MarkdownDocumentOptions) {
   if (/^#{1,6}\s/.test(trimmed)) return "heading";
   if (/^[*-]\s|\d+\.\s/.test(trimmed)) return "list";
   if (/^>/.test(trimmed)) return "blockquote";
-  if (/^```/.test(trimmed)) return "code_fence";
+  if (trimmed === FENCE) return "code_fence";
   return "paragraph";
 }
