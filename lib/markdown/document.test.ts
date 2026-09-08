@@ -1,7 +1,7 @@
 import assert from "node:assert";
 import { beforeEach, describe, test } from "node:test";
 
-import { MarkdownDocument } from "./document.ts";
+import { MarkdownDocument, normalizeMarkdown } from "./document.ts";
 
 describe("MarkdownDocument", () => {
   let doc: MarkdownDocument;
@@ -42,4 +42,22 @@ test("handles non-empty separator correctly", () => {
   docWithSep.appendParagraph("bar");
   // The lines getter should omit the trailing separator, but keep all content
   assert.deepStrictEqual(docWithSep.lines, ["foo", "<<", "bar"]);
+});
+
+describe("normalizeMarkdown", () => {
+  test("inserts a blank line between different block types", () => {
+    assert.deepStrictEqual(normalizeMarkdown(["# Heading", "paragraph"]), [
+      "# Heading",
+      "",
+      "paragraph",
+    ]);
+  });
+
+  test("preserves an existing blank line between blocks", () => {
+    assert.deepStrictEqual(normalizeMarkdown(["# Heading", "", "paragraph"]), [
+      "# Heading",
+      "",
+      "paragraph",
+    ]);
+  });
 });

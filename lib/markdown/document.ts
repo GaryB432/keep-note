@@ -50,3 +50,39 @@ export class MarkdownDocument {
     );
   }
 }
+
+export function normalizeMarkdown(lines: string[]): string[] {
+  const result = [];
+  let lastType = "none";
+
+  for (const line of lines) {
+    const currentType = detectBlockType(line);
+
+    // If we transition to a new block type (and it's not the first line),
+    // inject a blank line if one isn't already there.
+    if (
+      lastType !== "none" &&
+      lastType !== "blank" &&
+      currentType !== lastType &&
+      currentType !== "blank"
+    ) {
+      if (result[result.length - 1] !== "") {
+        result.push("");
+      }
+    }
+
+    result.push(line);
+    lastType = currentType;
+  }
+  return result;
+}
+
+function detectBlockType(line: string) {
+  const trimmed = line.trim();
+  if (trimmed === "") return "blank";
+  if (/^#{1,6}\s/.test(trimmed)) return "heading";
+  if (/^[*-]\s|\d+\.\s/.test(trimmed)) return "list";
+  if (/^>/.test(trimmed)) return "blockquote";
+  if (/^```/.test(trimmed)) return "code_fence";
+  return "paragraph";
+}
