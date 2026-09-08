@@ -30,8 +30,7 @@
     "eslint-plugin-perfectionist": "^5.7.0",
     "globals": "^17.4.0",
     "typescript": "^6.0.2",
-    "typescript-eslint": "^8.57.2",
-    "vitest": "^4.1.2"
+    "typescript-eslint": "^8.57.2"
   },
   "packageManager": "pnpm@12.3.4",
   "imports": {
