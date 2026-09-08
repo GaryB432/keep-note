@@ -1,6 +1,44 @@
 # keep-note
 
-Keep and Markdown
+Facilitate the capture of fleeting thoughts for your personal knowledge base.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor You as User
+    participant Keep as Google Keep / Wearable
+    participant Takeout as Google Takeout
+    participant Local as Staging (/tmp/...)
+    participant CLI as keep-note (bin.ts)
+    participant Obs as Obsidian Vault
+
+    %% Phase 1: Capture
+    rect rgb(240, 255, 240)
+        Note over You, Keep: Spontaneous Capture Phase
+        You->>Keep: Quick thought (Smart Watch / Voice / Web)
+        Keep-->>Keep: Stores note + attachments
+    end
+
+    %% Phase 2: Batch Export
+    rect rgb(255, 245, 235)
+        Note over You, Takeout: Periodic Batch Phase
+        You->>Takeout: Request Google Keep Export
+        Takeout-->>You: Download takeout.zip
+        You->>Local: Unzip to /tmp/unzipped-downloaded-notes/
+    end
+
+    %% Phase 3: CLI Aggregation
+    rect rgb(245, 245, 255)
+        Note over You, Obs: Transformation & Synthesis
+        You->>CLI: node ./bin.ts takeout <staging> --outDir ./pkb/summary-{%timestamp}.md
+        CLI->>Local: Read JSON/HTML metadata & assets
+        CLI->>Obs: Generate summary.md
+    end
+
+    %% Phase 4: Curation
+    You->>Obs: Open summary.md
+    You->>Obs: Cut/paste nuggets, create [[wikilinks]], tag notes
+```
 
 ```bash
 ./bin.ts takeout /mnt/e/example/Takeout/Keep -o $ONEDRIVE/Documents/PKM
