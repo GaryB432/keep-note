@@ -1,5 +1,5 @@
-const HASHES = "######";
-const SPACES = "      ";
+const HASH = "#";
+const SPACE = " ";
 const FENCE = "```";
 
 export interface MarkdownDocumentOptions {
@@ -23,7 +23,7 @@ export class MarkdownDocument {
   }
 
   public appendHeading(text: string, level = 1): void {
-    this.append([text], (s) => HASHES.slice(0, level).concat(" ").concat(s));
+    this.append([text], (s) => HASH.repeat(level).concat(" ").concat(s));
   }
 
   public appendHorizontalRule() {
@@ -32,7 +32,7 @@ export class MarkdownDocument {
 
   public appendList(lines: string[], numbered = false, level = 1): void {
     this.append(lines, (s) =>
-      SPACES.slice(0, level * 3)
+      SPACE.repeat(level * 3)
         .concat(numbered ? "1." : "-")
         .concat(" ")
         .concat(s),
