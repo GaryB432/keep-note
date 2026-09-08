@@ -29,9 +29,9 @@ cli.version(pkg.version);
 intro(blue(cli.name));
 
 const args = cli.parse(process.argv, { run: false });
-displayTakeoutInstructions();
 if (args.args.length && cli.matchedCommand) {
   cli.runMatchedCommand();
 } else {
+  displayTakeoutInstructions();
   cli.outputHelp();
 }
