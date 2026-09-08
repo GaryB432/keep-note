@@ -1,6 +1,7 @@
-import { beforeEach, describe, expect, test } from "vitest";
+import assert from "node:assert";
+import { beforeEach, describe, test } from "node:test";
 
-import { MarkdownDocument } from "./document";
+import { MarkdownDocument } from "./document.ts";
 
 describe("MarkdownDocument", () => {
   let doc: MarkdownDocument;
@@ -10,28 +11,28 @@ describe("MarkdownDocument", () => {
 
   test("appendHeading adds heading", () => {
     doc.appendHeading("Hello", 2);
-    expect(doc.lines[0]).toEqual("## Hello");
+    assert.strictEqual(doc.lines[0], "## Hello");
   });
 
   test("appendList adds bullet list", () => {
     doc.appendList(["item1", "item2"]);
-    expect(doc.lines[0]).toContain("- item1");
-    expect(doc.lines[1]).toContain("- item2");
+    assert.strictEqual(doc.lines[0], "   - item1");
+    assert.strictEqual(doc.lines[1], "   - item2");
   });
 
   test("appendList adds numbered list", () => {
     doc.appendList(["item1"], true);
-    expect(doc.lines[0]).toContain("1. item1");
+    assert.strictEqual(doc.lines[0], "   1. item1");
   });
 
   test("appendParagraph adds paragraph", () => {
     doc.appendParagraph("This is a paragraph.");
-    expect(doc.lines[0]).toEqual("This is a paragraph.");
+    assert.strictEqual(doc.lines[0], "This is a paragraph.");
   });
 
   test("lines omits trailing separator", () => {
     doc.appendParagraph("foo");
-    expect(doc.lines[doc.lines.length - 1]).toEqual("foo");
+    assert.strictEqual(doc.lines[doc.lines.length - 1], "foo");
   });
 });
 
@@ -40,5 +41,5 @@ test("handles non-empty separator correctly", () => {
   docWithSep.appendParagraph("foo");
   docWithSep.appendParagraph("bar");
   // The lines getter should omit the trailing separator, but keep all content
-  expect(docWithSep.lines).toEqual(["foo", "<<", "bar"]);
+  assert.deepStrictEqual(docWithSep.lines, ["foo", "<<", "bar"]);
 });
