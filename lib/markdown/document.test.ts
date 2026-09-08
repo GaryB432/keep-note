@@ -6,7 +6,7 @@ import { MarkdownDocument, normalizeMarkdown } from "./document.ts";
 describe("MarkdownDocument", () => {
   let doc: MarkdownDocument;
   beforeEach(() => {
-    doc = new MarkdownDocument({ separator: "" });
+    doc = new MarkdownDocument({ separator: "<<" });
   });
 
   test("appendHeading adds heading", () => {
@@ -46,18 +46,16 @@ test("handles non-empty separator correctly", () => {
 
 describe("normalizeMarkdown", () => {
   test("inserts a blank line between different block types", () => {
-    assert.deepStrictEqual(normalizeMarkdown(["# Heading", "paragraph"]), [
-      "# Heading",
-      "",
-      "paragraph",
-    ]);
+    assert.deepStrictEqual(
+      normalizeMarkdown(["# Heading", "paragraph"], { separator: "<<" }),
+      ["# Heading", "<<", "paragraph"],
+    );
   });
 
   test("preserves an existing blank line between blocks", () => {
-    assert.deepStrictEqual(normalizeMarkdown(["# Heading", "", "paragraph"]), [
-      "# Heading",
-      "",
-      "paragraph",
-    ]);
+    assert.deepStrictEqual(
+      normalizeMarkdown(["# Heading", "<<", "paragraph"], { separator: "<<" }),
+      ["# Heading", "<<", "paragraph"],
+    );
   });
 });

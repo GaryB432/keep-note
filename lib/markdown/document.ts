@@ -45,18 +45,21 @@ export class MarkdownDocument {
 
   private append(lines: string[], pre: (s: string) => string = (s) => s): void {
     this.plainLines.push(
-      ...lines.filter((line) => line !== this.opts.separator).map(pre),
+      ...normalizeMarkdown(lines, this.opts).map(pre),
       this.opts.separator,
     );
   }
 }
 
-export function normalizeMarkdown(lines: string[]): string[] {
-  const result = [];
+export function normalizeMarkdown(
+  lines: string[],
+  opts: MarkdownDocumentOptions,
+): string[] {
+  const result: string[] = [];
   let lastType = "none";
 
   for (const line of lines) {
-    const currentType = detectBlockType(line);
+    const currentType = detectBlockType(line, opts);
 
     // If we transition to a new block type (and it's not the first line),
     // inject a blank line if one isn't already there.
@@ -66,8 +69,8 @@ export function normalizeMarkdown(lines: string[]): string[] {
       currentType !== lastType &&
       currentType !== "blank"
     ) {
-      if (result[result.length - 1] !== "") {
-        result.push("");
+      if (result[result.length - 1] !== opts.separator) {
+        result.push(opts.separator);
       }
     }
 
@@ -77,9 +80,9 @@ export function normalizeMarkdown(lines: string[]): string[] {
   return result;
 }
 
-function detectBlockType(line: string) {
+function detectBlockType(line: string, opts: MarkdownDocumentOptions) {
   const trimmed = line.trim();
-  if (trimmed === "") return "blank";
+  if (trimmed === opts.separator) return "blank";
   if (/^#{1,6}\s/.test(trimmed)) return "heading";
   if (/^[*-]\s|\d+\.\s/.test(trimmed)) return "list";
   if (/^>/.test(trimmed)) return "blockquote";
