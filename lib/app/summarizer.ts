@@ -4,12 +4,12 @@ import { join, parse } from "node:path";
 
 import type { Attachment, Note } from "#lib/keep/types.d";
 
-import { hyphenate_date } from "#lib/app/strings";
+import { enquote, hyphenate_date } from "#lib/app/strings";
 import { MarkdownDocument } from "#lib/markdown/document";
 
 type Renamer = {
   input: string;
-  output: string | symbol;
+  output: string;
 };
 
 export async function createSingleDocument(
@@ -80,7 +80,9 @@ export async function createSingleDocument(
       if (flines.length > 0) {
         doc.appendHeading("Attachments", 2);
         doc.appendCode(
-          flines.map((c) => ["cp", c.input, c.output].join(" ")),
+          flines.map((c) =>
+            ["cp", enquote(c.input), enquote(c.output)].join(" "),
+          ),
           "bash",
         );
       }

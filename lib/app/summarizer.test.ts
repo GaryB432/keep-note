@@ -1,8 +1,9 @@
-import { describe, expect, test } from "vitest";
+import assert from "node:assert";
+import { describe, test } from "node:test";
 
 import type { Note } from "#lib/keep/types.d";
 
-import { createSingleDocument } from "./summarizer";
+import { createSingleDocument } from "./summarizer.ts";
 
 describe("Summarizer", () => {
   test("createSingleDocument with basic note", async () => {
@@ -19,7 +20,7 @@ describe("Summarizer", () => {
       },
     ];
     const doc = await createSingleDocument(notes, "~/a/b", "mnt/e/fun", false);
-    expect(doc.lines).toEqual(["# Test Note", "", "This is a test note."]);
+    assert.deepEqual(doc.lines, ["# Test Note", "", "This is a test note."]);
   });
 
   test("createSingleDocument with annotation and attachment", async () => {
@@ -29,8 +30,8 @@ describe("Summarizer", () => {
           {
             description: "Matt's link",
             source: "WEBLINK",
-            title: "Rogers Lawn Care - 2 Recommendations - Ballwin, MO",
-            url: "https://nextdoor.com/pages/matt-rogers-ballwin-mo-5/",
+            title: "Testers Extravaganza - 2 Recommendations - Testerton, CA",
+            url: "https://nextdoor.com/pages/matt-subject-testerton-ca-5/",
           },
         ],
         attachments: [{ filePath: "foo.pdf", mimetype: "application/pdf" }],
@@ -45,25 +46,24 @@ describe("Summarizer", () => {
       },
     ];
     const doc = await createSingleDocument(notes, "keepdump", "pkm", false);
-    expect(doc.lines).toMatchInlineSnapshot(`
-      [
-        "# Note with extras",
-        "",
-        "Body",
-        "",
-        "- [Rogers Lawn Care - 2 Recommendations - Ballwin, MO](https://nextdoor.com/pages/matt-rogers-ballwin-mo-5/)",
-        "",
-        "## Attachments",
-        "",
-        "\`\`\`bash",
-        "cp keepdump/foo.pdf pkm/foo.pdf",
-        "\`\`\`",
-      ]
-    `);
+    assert.deepEqual(doc.lines, [
+      "# Note with extras",
+      "",
+      "Body",
+      "",
+      "- [Testers Extravaganza - 2 Recommendations - Testerton, CA](https://nextdoor.com/pages/matt-subject-testerton-ca-5/)",
+      "",
+      "## Attachments",
+      "",
+      "```bash",
+      'cp "keepdump/foo.pdf" "pkm/foo.pdf"',
+      "",
+      "```",
+    ]);
   });
 
   test("createSingleDocument with empty notes array returns empty doc", async () => {
     const doc = await createSingleDocument([], "~/a/b", "mnt/e/fun", false);
-    expect(doc.lines.length).toBe(0);
+    assert.ok(doc.lines.length === 0);
   });
 });
