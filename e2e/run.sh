@@ -12,27 +12,30 @@ if [ ! -d "$input_dir" ]; then
 fi
 
 cd "$repo_root"
-rm -rf -- tmp
-mkdir -p tmp
 
-node ./bin.ts takeout "$input_dir" -o tmp --ci > /tmp/keep-note-e2e.out 2>&1
+xdg_dir=${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}
+output_dir="$xdg_dir/keep-note-e2e-$$"
+rm -rf -- "$output_dir"
+mkdir -p "$output_dir"
 
-if [ ! -f "tmp/summary.md" ]; then
+node ./bin.ts takeout "$input_dir" -o "$output_dir" --ci > /tmp/keep-note-e2e.out 2>&1
+
+if [ ! -f "$output_dir/summary.md" ]; then
   cat /tmp/keep-note-e2e.out >&2
-  echo "Missing summary.md at tmp/summary.md" >&2
+  echo "Missing summary.md at $output_dir/summary.md" >&2
   exit 1
 fi
 
-if ! grep -q 'I skipped to this' tmp/summary.md; then
+if ! grep -q 'I skipped to this' "$output_dir/summary.md"; then
   cat /tmp/keep-note-e2e.out >&2
   echo "summary.md did not include expected fixture content" >&2
   exit 1
 fi
 
-if ! grep -q 'cp .*19d27298421\.828c1c769f7cce46\.jpg .*tmp/19d27298421\.828c1c769f7cce46\.jpg' tmp/summary.md; then
+if ! grep -q 'cp .*watermarked_img\.jpg .*watermarked_img\.jpg' "$output_dir/summary.md"; then
   cat /tmp/keep-note-e2e.out >&2
   echo "summary.md did not preserve the original attachment filename" >&2
   exit 1
 fi
 
-echo "ok: keep-note takeout --ci wrote tmp/summary.md"
+echo "ok: keep-note takeout --ci wrote $output_dir/summary.md"
