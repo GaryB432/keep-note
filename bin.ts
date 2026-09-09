@@ -9,7 +9,8 @@ import pkg from "./package.json" with { type: "json" };
 
 const cli = cac("keep-note")
   .option("-d, --dryRun", "Write no changes to disk")
-  .option("-i, --interactive", "Show All Prompts");
+  .option("-i, --interactive", "Show all prompts", { default: true })
+  .option("--ci", "CI mode: skip prompts and keep original attachment names");
 
 cli
   .command(

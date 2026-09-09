@@ -1,6 +1,7 @@
 export type GlobalOptions = {
-  dryRun: boolean;
-  interactive: boolean;
+  ci?: boolean;
+  dryRun?: boolean;
+  interactive?: boolean;
 };
 
 export type Note = {

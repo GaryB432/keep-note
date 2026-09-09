@@ -7,32 +7,22 @@ import { createSingleDocument } from "#lib/app/summarizer";
 
 import type { GlobalOptions, Note } from "./types";
 
-export function add(a: number, b: number): number {
-  return a + b;
-}
-export function greet(name: string): string {
-  return `takeout says: hello to ${name}`;
-}
-export const meaning: { life: number } = {
-  life: 42,
-};
-
 export const displayTakeoutInstructions = () => {
   frog.info(`
 ${bold.cyan("How to get your Google Keep Takeout file:")}
 
-1. Go to ${underline.blue("https://google.com")}
+1. Go to ${underline.blue("https://takeout.google.com")}
 2. Click ${yellow('"Deselect all"')} at the top of the list.
-3. Scroll down, find ${green("Keep")}, and check its box.
-4. Scroll to the bottom and click ${bold("Next step")}.
+3. Scroll down, find ${bold.green("Keep")}, and check its box.
+4. Scroll to the bottom and click ${bold.green("Next step")}.
 5. Configure the export settings:
    • ${dim("Destination:")} Send download link via email
    • ${dim("Frequency:")} Export once
    • ${dim("File type:")} .tgz
-   6. Click ${bold.green("Create export")}.
-   7. Download the archive when the email arrives.
-   • It will contain a ${bold.green("Takeout/Keep")} folder
-  `);
+6. Click ${bold.green("Create export")}.
+7. Download the archive when the email arrives.
+  • It will contain a ${bold.green("Takeout/Keep")} folder
+`);
 };
 
 export type TakeoutOptions = GlobalOptions & {
@@ -65,6 +55,8 @@ export async function takeoutCommand(
     process.exit(1);
   }
 
+  const interactive = opttions.ci ? false : (opttions.interactive ?? true);
+
   if (path) {
     const outDir =
       opttions?.outDir ??
@@ -95,12 +87,7 @@ export async function takeoutCommand(
       },
     );
 
-    const doc = await createSingleDocument(
-      notes,
-      path,
-      outDir,
-      opttions.interactive ?? true,
-    );
+    const doc = await createSingleDocument(notes, path, outDir, interactive);
     if (opttions.dryRun) {
       frog.warn(`Dry Run. ${yellow(outDir)} not written.`);
     } else {
