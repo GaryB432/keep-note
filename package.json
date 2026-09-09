@@ -32,8 +32,5 @@
     "typescript": "^6.0.2",
     "typescript-eslint": "^8.57.2"
   },
-  "packageManager": "pnpm@12.3.4",
-  "imports": {
-    "#lib/*": "./lib/*.ts"
-  }
+  "packageManager": "pnpm@12.3.4"
 }

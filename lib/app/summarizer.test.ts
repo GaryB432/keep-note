@@ -1,7 +1,7 @@
 import assert from "node:assert";
 import { describe, test } from "node:test";
 
-import type { Note } from "#lib/keep/types.d";
+import type { Note } from "../keep/types.d.ts";
 
 import { createSingleDocument } from "./summarizer.ts";
 

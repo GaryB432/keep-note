@@ -3,8 +3,10 @@ import { intro } from "@clack/prompts";
 import { blue } from "ansis";
 import { cac } from "cac";
 
-import { displayTakeoutInstructions, takeoutCommand } from "#lib/keep/takeout";
-
+import {
+  displayTakeoutInstructions,
+  takeoutCommand,
+} from "./lib/keep/takeout.ts";
 import pkg from "./package.json" with { type: "json" };
 
 const cli = cac("keep-note")

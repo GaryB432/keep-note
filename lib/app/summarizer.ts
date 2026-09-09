@@ -2,10 +2,10 @@ import { isCancel, text } from "@clack/prompts";
 import { cyan } from "ansis";
 import { join, parse } from "node:path";
 
-import type { Attachment, Note } from "#lib/keep/types.d";
+import type { Attachment, Note } from "../keep/types.d.ts";
 
-import { enquote, hyphenate_date } from "#lib/app/strings";
-import { MarkdownDocument } from "#lib/markdown/document";
+import { MarkdownDocument } from "../markdown/document.ts";
+import { enquote, hyphenate_date } from "./strings.ts";
 
 type Renamer = {
   input: string;

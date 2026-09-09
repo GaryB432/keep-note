@@ -4,9 +4,9 @@ import { existsSync } from "node:fs";
 import { glob, mkdir, readFile, writeFile } from "node:fs/promises";
 import { join, parse } from "node:path";
 
-import { createSingleDocument } from "#lib/app/summarizer";
-
 import type { GlobalOptions, Note } from "./types";
+
+import { createSingleDocument } from "../app/summarizer.ts";
 
 export const displayTakeoutInstructions = () => {
   frog.info(`
