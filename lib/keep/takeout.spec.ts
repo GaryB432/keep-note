@@ -1,5 +1,3 @@
-import { describe, expect, test } from "vitest";
-
 import { add, greet, meaning } from "./takeout";
 
 describe("Takeout", () => {

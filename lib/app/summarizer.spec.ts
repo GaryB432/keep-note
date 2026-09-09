@@ -1,5 +1,3 @@
-import { describe, expect, test } from "vitest";
-
 import type { Note } from "#lib/keep/types.d";
 
 import { createSingleDocument } from "./summarizer";
