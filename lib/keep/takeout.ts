@@ -48,15 +48,15 @@ export async function digest(path: string): Promise<Note[]> {
 
 export async function takeoutCommand(
   path: string,
-  opttions: Readonly<Partial<TakeoutOptions>>,
+  options: Readonly<Partial<TakeoutOptions>>,
 ): Promise<void> {
-  // const forcePrompts = typeof opttions?.interactive === "undefined";
-  if (typeof opttions.outDir === "boolean") {
+  // const forcePrompts = typeof options?.interactive === "undefined";
+  if (typeof options.outDir === "boolean") {
     frog.error("weird args. see help.");
     process.exit(1);
   }
 
-  const interactive = opttions.ci ? false : (opttions.interactive ?? true);
+  const interactive = options.ci ? false : (options.interactive ?? true);
 
   if (!existsSync(path)) {
     frog.error(`Path ${path} does not exist`);
@@ -65,10 +65,10 @@ export async function takeoutCommand(
 
   if (path) {
     const outDir =
-      opttions?.outDir ??
+      options?.outDir ??
       (await resolveOutDir({
         outDir: join(path, "keep-note", new Date().toISOString()),
-        ...opttions,
+        ...options,
       }));
 
     if (isCancel(outDir)) {
@@ -94,7 +94,7 @@ export async function takeoutCommand(
     );
 
     const doc = await createSingleDocument(notes, path, outDir, interactive);
-    if (opttions.dryRun) {
+    if (options.dryRun) {
       frog.warn(`Dry Run. ${yellow(outDir)} not written.`);
     } else {
       await writeFile(summaryFilePath, doc.lines.join("\n"));
@@ -129,10 +129,10 @@ function countNotesByLabel(notes: Note[]) {
 }
 
 async function resolveOutDir(
-  opttions: Pick<TakeoutOptions, "outDir">,
+  options: Pick<TakeoutOptions, "outDir">,
 ): Promise<string | symbol> {
   return await text({
-    initialValue: opttions.outDir,
+    initialValue: options.outDir,
     message: "Where should the Markdown content be placed?",
     placeholder: "./keep-notes/markdown",
   });
