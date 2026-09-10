@@ -1,7 +1,7 @@
 import assert from "node:assert";
 import { describe, test } from "node:test";
 
-import { leftWords, spaces, stringify } from "./strings.ts";
+import { leftWords, stringify } from "./strings.ts";
 
 describe("Strings", () => {
   test("stringify returns cleaned string", () => {
@@ -15,11 +15,6 @@ describe("Strings", () => {
     assert.deepEqual(stringify(undefined), undefined);
     assert.deepEqual(stringify(null), undefined);
     assert.deepEqual(stringify("   "), undefined);
-  });
-
-  test("spaces returns correct number of spaces", () => {
-    assert.deepEqual(spaces(3), "   ");
-    assert.deepEqual(spaces(0), "");
   });
 
   test("leftWords returns leftmost words up to maxLength", () => {

@@ -20,7 +20,12 @@ describe("Summarizer", () => {
       },
     ];
     const doc = await createSingleDocument(notes, "~/a/b", "mnt/e/fun", false);
-    assert.deepEqual(doc.lines, ["# Test Note", "", "This is a test note."]);
+    assert.deepEqual(doc.lines, [
+      "# Test Note",
+      "",
+      "This is a test note.",
+      "",
+    ]);
   });
 
   test("createSingleDocument with annotation and attachment", async () => {
@@ -59,6 +64,7 @@ describe("Summarizer", () => {
       'cp "keepdump/foo.pdf" "pkm/foo.pdf"',
       "",
       "```",
+      "",
     ]);
   });
 

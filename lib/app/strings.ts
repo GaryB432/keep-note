@@ -27,10 +27,6 @@ export function leftWords(s: string, maxLength = 100): string {
   return response;
 }
 
-export function spaces(count: number): string {
-  return Array(count).fill(" ").join("");
-}
-
 export function stringify(o: null | string | undefined): string | undefined {
   if (!o) return undefined;
   if (!o || o.trim().length === 0) {
@@ -38,3 +34,7 @@ export function stringify(o: null | string | undefined): string | undefined {
   }
   return o?.replace(/\n/g, " ").replace(/\s+/g, " ").trim();
 }
+
+export const HASH = "#";
+export const SPACE = " ";
+export const FENCE = "```";
