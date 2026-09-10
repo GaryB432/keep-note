@@ -5,7 +5,7 @@ import { join, parse } from "node:path";
 import type { Attachment, Note } from "../keep/types.d.ts";
 
 import { MarkdownDocument } from "../markdown/document.ts";
-import { enquote, hyphenate_date } from "./strings.ts";
+import { enquote, hyphenate_date, leftWords } from "./strings.ts";
 
 type Renamer = {
   input: string;
@@ -36,11 +36,11 @@ export async function createSingleDocument(
     if (!title || title.length < 1) {
       title = [
         "Untitled",
-        hyphenate_date(note.userEditedTimestampUsec / 1000).concat(` ${i}`),
+        hyphenate_date(note.userEditedTimestampUsec / 1000).concat(` ${i + 1}`),
       ].join(" ");
     }
 
-    doc.appendHeading(title);
+    doc.appendHeading(leftWords(title, 40));
 
     if (note.textContent && note.textContent !== "") {
       doc.appendParagraph(note.textContent.trimEnd());
