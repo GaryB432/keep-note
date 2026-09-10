@@ -40,7 +40,7 @@ export async function createSingleDocument(
       ].join(" ");
     }
 
-    doc.appendHeading(leftWords(title, 40));
+    doc.appendHeading(leftWords(title, 40), 2);
 
     if (note.textContent && note.textContent !== "") {
       doc.appendParagraph(note.textContent.trimEnd());
@@ -78,7 +78,7 @@ export async function createSingleDocument(
         }
       }
       if (flines.length > 0) {
-        doc.appendHeading("Attachments", 2);
+        doc.appendHeading("Attachments", 3);
         doc.appendCode(
           flines.map((c) =>
             ["cp", enquote(c.input), enquote(c.output)].join(" "),

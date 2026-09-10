@@ -7,7 +7,7 @@ import { createSingleDocument } from "./summarizer.ts";
 
 describe("Summarizer", () => {
   test("createSingleDocument with basic note", async () => {
-    const notes = [
+    const notes: Note[] = [
       {
         color: "yellow",
         createdTimestampUsec: 1,
@@ -21,7 +21,7 @@ describe("Summarizer", () => {
     ];
     const doc = await createSingleDocument(notes, "~/a/b", "mnt/e/fun", false);
     assert.deepEqual(doc.lines, [
-      "# Test Note",
+      "## Test Note",
       "",
       "This is a test note.",
       "",
@@ -52,13 +52,13 @@ describe("Summarizer", () => {
     ];
     const doc = await createSingleDocument(notes, "keepdump", "pkm", false);
     assert.deepEqual(doc.lines, [
-      "# Note with extras",
+      "## Note with extras",
       "",
       "Body",
       "",
       "- [Testers Extravaganza - 2 Recommendations - Testerton, CA](https://nextdoor.com/pages/matt-subject-testerton-ca-5/)",
       "",
-      "## Attachments",
+      "### Attachments",
       "",
       "```bash",
       'cp "keepdump/foo.pdf" "pkm/foo.pdf"',
