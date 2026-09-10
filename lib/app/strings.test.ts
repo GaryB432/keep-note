@@ -1,24 +1,18 @@
 import assert from "node:assert";
 import { describe, test } from "node:test";
 
-import { leftWords, stringify } from "./strings.ts";
+import { leftWords } from "./strings.ts";
 
 describe("Strings", () => {
-  test("stringify returns cleaned string", () => {
-    assert.deepEqual(
-      stringify("  hello   world\nnew line  "),
-      "hello world new line",
-    );
-  });
-  test("stringify returns undefined for empty or falsy", () => {
-    assert.deepEqual(stringify(""), undefined);
-    assert.deepEqual(stringify(undefined), undefined);
-    assert.deepEqual(stringify(null), undefined);
-    assert.deepEqual(stringify("   "), undefined);
-  });
-
   test("leftWords returns leftmost words up to maxLength", () => {
-    assert.match(leftWords("The quick brown fox jumps", 10), /^The /);
-    assert.ok(leftWords("The quick brown fox jumps", 100).includes("quick"));
+    const tb = "The quick brown fox jumps";
+    assert.deepEqual(leftWords(tb, 1), "");
+    assert.deepEqual(leftWords(tb, 3), "The");
+    assert.deepEqual(leftWords(tb, 5), "The");
+    assert.deepEqual(leftWords(tb, 10), "The quick");
+    assert.deepEqual(leftWords(tb, 18), "The quick brown");
+    assert.deepEqual(leftWords(tb, 22), "The quick brown fox");
+    assert.deepEqual(leftWords(tb, tb.length), tb);
+    assert.notDeepEqual(leftWords(tb, tb.length - 1), tb);
   });
 });

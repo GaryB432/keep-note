@@ -24,15 +24,7 @@ export function leftWords(s: string, maxLength = 100): string {
       response += " ";
     }
   }
-  return response;
-}
-
-export function stringify(o: null | string | undefined): string | undefined {
-  if (!o) return undefined;
-  if (!o || o.trim().length === 0) {
-    return undefined;
-  }
-  return o?.replace(/\n/g, " ").replace(/\s+/g, " ").trim();
+  return response.trim();
 }
 
 export const HASH = "#";
