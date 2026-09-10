@@ -1,16 +1,15 @@
-const HASH = "#";
-const SPACE = " ";
-const FENCE = "```";
+import { FENCE, HASH, SPACE } from "../app/strings.ts";
 
 export interface MarkdownDocumentOptions {
   separator: "" | "<<";
 }
 
+type MarkdownElementType =
+  "blank" | "blockquote" | "code_fence" | "heading" | "list" | "paragraph";
+
 export class MarkdownDocument {
   get lines(): string[] {
-    const working_lines = [...this.plainLines];
-    const last_line = working_lines.pop();
-    return last_line === this.opts.separator ? working_lines : this.plainLines;
+    return normalizeMarkdown(this.plainLines, this.opts);
   }
   private opts: MarkdownDocumentOptions;
   private readonly plainLines: string[] = [];
@@ -27,7 +26,7 @@ export class MarkdownDocument {
   }
 
   public appendHorizontalRule() {
-    this.append(["", "---", ""]);
+    this.append([this.opts.separator, "***", this.opts.separator]);
   }
 
   public appendList(lines: string[], numbered = false, level = 1): void {
@@ -40,12 +39,13 @@ export class MarkdownDocument {
   }
 
   public appendParagraph(text: string): void {
-    this.append([text]);
+    this.append(text.split("\n"));
   }
 
   private append(lines: string[], pre: (s: string) => string = (s) => s): void {
     this.plainLines.push(
-      ...normalizeMarkdown(lines, this.opts).map(pre),
+      // ...normalizeMarkdown(lines, this.opts).map(pre),
+      ...lines.map(pre),
       this.opts.separator,
     );
   }
@@ -80,7 +80,10 @@ export function normalizeMarkdown(
   return result;
 }
 
-function detectBlockType(line: string, opts: MarkdownDocumentOptions) {
+function detectBlockType(
+  line: string,
+  opts: MarkdownDocumentOptions,
+): MarkdownElementType {
   const trimmed = line.trim();
   if (trimmed === opts.separator) return "blank";
   if (/^#{1,6}\s/.test(trimmed)) return "heading";
