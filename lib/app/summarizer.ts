@@ -28,9 +28,7 @@ export async function createSingleDocument(
     }))
     .toSorted((a, b) => b.userEditedTimestampUsec - a.userEditedTimestampUsec);
 
-  const cancelled = false;
-
-  for (let i = 0; !cancelled && i < sorted_notes.length; i++) {
+  for (let i = 0; i < sorted_notes.length; i++) {
     const note = sorted_notes[i];
     if (i > 0) {
       doc.appendHorizontalRule();
