@@ -31,7 +31,7 @@ export type TakeoutOptions = GlobalOptions & {
   outDir: string;
 };
 
-export async function digest(path: string): Promise<Note[]> {
+export async function digest(path: string): Promise<Partial<Note>[]> {
   const files = await Array.fromAsync(glob(join(path, "*.json")));
 
   const documents = files
@@ -42,7 +42,7 @@ export async function digest(path: string): Promise<Note[]> {
     documents.map(async (d) => await readFile(join(d.dir, d.base), "utf-8")),
   );
 
-  const allNotes = jsons.map<Note>((d) => JSON.parse(d));
+  const allNotes = jsons.map<Partial<Note>>((d) => JSON.parse(d));
 
   return allNotes.filter((n) => !n.isTrashed && !n.isArchived);
 }
@@ -117,12 +117,16 @@ export async function takeoutCommand(
   }
 }
 
-function countNotesByLabel(notes: Note[]) {
+function countNotesByLabel(
+  notes: Pick<Note, "labels">[],
+): Record<string, number> {
   return notes.reduce<Record<string, number>>((a, note) => {
     if (note.labels) {
       const labelNames = note.labels.map((v) => v.name);
       for (const name of labelNames) {
-        a[name] = (a[name] ?? 0) + 1;
+        if (name) {
+          a[name] = (a[name] ?? 0) + 1;
+        }
       }
     }
     return a;

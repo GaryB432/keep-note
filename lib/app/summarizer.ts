@@ -13,16 +13,20 @@ type Renamer = {
 };
 
 export async function createSingleDocument(
-  notes: Note[],
+  notes: Partial<Note>[],
   path: string,
   outDir: string,
   interactive: boolean,
 ): Promise<MarkdownDocument> {
   const doc = new MarkdownDocument();
 
-  const sorted_notes = notes.toSorted(
-    (a, b) => b.userEditedTimestampUsec - a.userEditedTimestampUsec,
-  );
+  const sorted_notes = notes
+    .filter((n) => !!n.textContent)
+    .map((n) => ({
+      userEditedTimestampUsec: n.userEditedTimestampUsec ?? 0,
+      ...n,
+    }))
+    .toSorted((a, b) => b.userEditedTimestampUsec - a.userEditedTimestampUsec);
 
   let cancelled = false;
 
