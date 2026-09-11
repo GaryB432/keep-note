@@ -20,7 +20,7 @@ describe("Summarizer", () => {
       },
     ];
     const doc = await createSingleDocument(notes, "~/a/b", "mnt/e/fun", false);
-    assert.deepEqual(doc.lines, [
+    assert.deepEqual(typeof doc === "object" && doc.lines, [
       "## Test Note",
       "",
       "This is a test note.",
@@ -51,7 +51,7 @@ describe("Summarizer", () => {
       },
     ];
     const doc = await createSingleDocument(notes, "keepdump", "pkm", false);
-    assert.deepEqual(doc.lines, [
+    assert.deepEqual(typeof doc === "object" && doc.lines, [
       "## Note with extras",
       "",
       "Body",
@@ -70,6 +70,6 @@ describe("Summarizer", () => {
 
   test("createSingleDocument with empty notes array returns empty doc", async () => {
     const doc = await createSingleDocument([], "~/a/b", "mnt/e/fun", false);
-    assert.ok(doc.lines.length === 0);
+    assert.ok(typeof doc === "object" && doc.lines.length === 0);
   });
 });

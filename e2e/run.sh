@@ -23,7 +23,7 @@ output_dir="$xdg_dir/keep-note-e2e-$$"
 # rm -rf -- "$output_dir"
 # mkdir -p "$output_dir"
 
-if ! node ./bin.ts takeout "$input_dir" -o "$output_dir" --ci > /tmp/keep-note-e2e.out 2>&1; then
+if ! node ./bin.ts takeout "$input_dir" -o "$output_dir" --no-timestamp --ci > /tmp/keep-note-e2e.out 2>&1; then
   cat /tmp/keep-note-e2e.out >&2
   printf '%btakeout command failed%b\n' "$RED" "$RESET" >&2
   exit 1

@@ -17,7 +17,7 @@ export async function createSingleDocument(
   path: string,
   outDir: string,
   interactive: boolean,
-): Promise<MarkdownDocument> {
+): Promise<MarkdownDocument | symbol> {
   const doc = new MarkdownDocument();
 
   const sorted_notes = notes
@@ -28,9 +28,7 @@ export async function createSingleDocument(
     }))
     .toSorted((a, b) => b.userEditedTimestampUsec - a.userEditedTimestampUsec);
 
-  let cancelled = false;
-
-  for (let i = 0; !cancelled && i < sorted_notes.length; i++) {
+  for (let i = 0; i < sorted_notes.length; i++) {
     const note = sorted_notes[i];
     if (i > 0) {
       doc.appendHorizontalRule();
@@ -75,8 +73,7 @@ export async function createSingleDocument(
           : Promise.resolve(join(outDir, p.base));
         const output = await newNamePromise;
         if (isCancel(output)) {
-          cancelled = true;
-          break;
+          return output;
         } else {
           flines.push({ input: join(path, p.base), output });
         }
@@ -94,6 +91,14 @@ export async function createSingleDocument(
   }
 
   return doc;
+}
+
+export function summarizeListOfNotes(
+  notes: Partial<Note>[],
+): string | undefined {
+  return ["much", "info", "coming", "soon", `notes: ${notes.length}`].join(
+    "\n",
+  );
 }
 
 function anchorLine(anchor: {
