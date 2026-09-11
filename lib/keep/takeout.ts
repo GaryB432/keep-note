@@ -7,7 +7,11 @@ import { join, parse } from "node:path";
 import type { GlobalOptions } from "../app/types.ts";
 import type { Note } from "./types.ts";
 
-import { createSingleDocument } from "../app/summarizer.ts";
+import { timestampForDir } from "../app/strings.ts";
+import {
+  createSingleDocument,
+  summarizeListOfNotes,
+} from "../app/summarizer.ts";
 
 export const displayTakeoutInstructions = () => {
   frog.info(`
@@ -29,6 +33,7 @@ ${bold.cyan("How to get your Google Keep Takeout file:")}
 
 export type TakeoutOptions = GlobalOptions & {
   outDir: string;
+  timestamp: boolean;
 };
 
 export async function digest(path: string): Promise<Partial<Note>[]> {
@@ -65,20 +70,25 @@ export async function takeoutCommand(
   }
 
   if (path) {
-    const outDir =
-      options?.outDir ??
-      (await resolveOutDir({
-        outDir: join(path, "keep-note", new Date().toISOString()),
-        ...options,
-      }));
+    let speculative_od: string | symbol | undefined = options.outDir;
 
-    if (isCancel(outDir)) {
+    if (!speculative_od) {
+      speculative_od = await resolveOutDir("clout/notes");
+    }
+
+    if (!speculative_od || isCancel(speculative_od)) {
       return;
     }
 
+    const outDir = options.timestamp
+      ? join(speculative_od, timestampForDir(new Date()))
+      : speculative_od;
+
     const summaryFilePath = join(outDir, "summary.md");
 
-    const newFolder = await mkdir(outDir, { recursive: true });
+    const newFolder = await mkdir(outDir, {
+      recursive: true,
+    });
 
     if (newFolder) {
       frog.info(`${outDir} was created`);
@@ -86,17 +96,21 @@ export async function takeoutCommand(
 
     const notes = await digest(path);
 
-    const labelsSummary = Object.entries(countNotesByLabel(notes)).map(
-      ([k, v]) => {
-        const lhs = cyan(k).padEnd(26, ".");
-        const rhs = yellow(v.toString()).padStart(16, ".");
-        return `${lhs}${rhs}`;
-      },
-    );
+    // const labelsSummary = Object.entries(countNotesByLabel(notes)).map(
+    //   ([k, v]) => {
+    //     const lhs = cyan(k).padEnd(26, ".");
+    //     const rhs = yellow(v.toString()).padStart(16, ".");
+    //     return `${lhs}${rhs}`;
+    //   },
+    // );
+
+    note(summarizeListOfNotes(notes), `Summary: ${cyan(path)}`);
 
     const doc = await createSingleDocument(notes, path, outDir, interactive);
     if (options.dryRun) {
       frog.warn(`Dry Run. ${yellow(outDir)} not written.`);
+    } else if (isCancel(doc)) {
+      frog.info("cancelled");
     } else {
       await writeFile(summaryFilePath, doc.lines.join("\n"));
       frog.success(`Finished. ${green(summaryFilePath)} written.`);
@@ -106,38 +120,31 @@ export async function takeoutCommand(
     //   "Markdown",
     // );
 
-    if (labelsSummary.length === 0) {
-      labelsSummary.push("No labels");
-    }
-
-    note(
-      labelsSummary.join("\n"),
-      "Process Summary", // This is the title of the note
-    );
+    // if (labelsSummary.length === 0) {
+    //   labelsSummary.push("No labels");
+    // }
   }
 }
 
-function countNotesByLabel(
-  notes: Pick<Note, "labels">[],
-): Record<string, number> {
-  return notes.reduce<Record<string, number>>((a, note) => {
-    if (note.labels) {
-      const labelNames = note.labels.map((v) => v.name);
-      for (const name of labelNames) {
-        if (name) {
-          a[name] = (a[name] ?? 0) + 1;
-        }
-      }
-    }
-    return a;
-  }, {});
-}
+// function _countNotesByLabel(
+//   notes: Pick<Note, "labels">[],
+// ): Record<string, number> {
+//   return notes.reduce<Record<string, number>>((a, note) => {
+//     if (note.labels) {
+//       const labelNames = note.labels.map((v) => v.name);
+//       for (const name of labelNames) {
+//         if (name) {
+//           a[name] = (a[name] ?? 0) + 1;
+//         }
+//       }
+//     }
+//     return a;
+//   }, {});
+// }
 
-async function resolveOutDir(
-  options: Pick<TakeoutOptions, "outDir">,
-): Promise<string | symbol> {
+async function resolveOutDir(initialValue: string): Promise<string | symbol> {
   return await text({
-    initialValue: options.outDir,
+    initialValue,
     message: "Where should the Markdown content be placed?",
     placeholder: "./keep-notes/markdown",
   });
