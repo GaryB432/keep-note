@@ -70,19 +70,19 @@ export async function takeoutCommand(
   }
 
   if (path) {
-    let speculative_od: string | symbol | undefined = options.outDir;
+    let maybe_od: string | symbol | undefined = options.outDir;
 
-    if (!speculative_od) {
-      speculative_od = await resolveOutDir("clout/notes");
+    if (!maybe_od) {
+      maybe_od = await resolveOutDir("clout/notes");
     }
 
-    if (!speculative_od || isCancel(speculative_od)) {
+    if (!maybe_od || isCancel(maybe_od)) {
       return;
     }
 
     const outDir = options.timestamp
-      ? join(speculative_od, timestampForDir(new Date()))
-      : speculative_od;
+      ? join(maybe_od, timestampForDir(new Date()))
+      : maybe_od;
 
     const summaryFilePath = join(outDir, "summary.md");
 

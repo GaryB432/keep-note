@@ -107,6 +107,7 @@ function anchorLine(anchor: {
 }): string {
   return `[${anchor.title ?? new URL(anchor.href).hostname}](${anchor.href})`;
 }
+
 async function resolveAttachmentName(
   outDir: string,
   attachment: Attachment,
