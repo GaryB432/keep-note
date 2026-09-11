@@ -39,7 +39,7 @@ export class MarkdownDocument {
   }
 
   public appendParagraph(text: string): void {
-    this.append(text.split("\n"));
+    this.append(text.split("\n").map((s) => s.trim()));
   }
 
   private append(lines: string[], pre: (s: string) => string = (s) => s): void {
