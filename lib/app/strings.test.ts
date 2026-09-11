@@ -18,7 +18,8 @@ describe("Strings", () => {
 });
 
 test("timestampForDir formats a timestamp", () => {
-  const timestamp = new Date(2059, 4, 20, 16, 11, 42);
-
-  assert.equal(timestampForDir(timestamp), "2059-05-20_16-11-42");
+  assert.strictEqual(
+    timestampForDir(new Date(2059, 4, 20, 16, 11, 42)),
+    "2059-05-20_16-11-42",
+  );
 });
