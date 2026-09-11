@@ -21,5 +21,6 @@ jobs:
       # Install after cache is restored and Node 24 is loaded
       - run: pnpm install --frozen-lockfile
 
+      - run: pnpm run check
       - run: pnpm run lint
       - run: pnpm run test

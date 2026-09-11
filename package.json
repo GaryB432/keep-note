@@ -10,6 +10,7 @@
   },
   "scripts": {
     "test": "node --test",
+    "check": "tsc --noEmit",
     "lint": "pnpm eslint .",
     "dev": "node ./bin.ts"
   },
