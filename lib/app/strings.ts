@@ -1,12 +1,7 @@
-export function add(a: number, b: number): number {
-  return a + b;
+export function enquote(str: string, double = true) {
+  const q = double ? '"' : "'";
+  return [q, str.trim(), q].join("");
 }
-export function greet(name: string): string {
-  return `strings says: hello to ${name}`;
-}
-export const meaning: { life: number } = {
-  life: 42,
-};
 
 export function hyphenate_date(date: Date | number): string {
   return new Intl.DateTimeFormat()
@@ -29,17 +24,9 @@ export function leftWords(s: string, maxLength = 100): string {
       response += " ";
     }
   }
-  return response;
+  return response.trim();
 }
 
-export function spaces(count: number): string {
-  return Array(count).fill(" ").join("");
-}
-
-export function stringify(o: null | string | undefined): string | undefined {
-  if (!o) return undefined;
-  if (!o || o.trim().length === 0) {
-    return undefined;
-  }
-  return o?.replace(/\n/g, " ").replace(/\s+/g, " ").trim();
-}
+export const HASH = "#";
+export const SPACE = " ";
+export const FENCE = "```";

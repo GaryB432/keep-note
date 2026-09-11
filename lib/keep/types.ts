@@ -1,8 +1,4 @@
-export type GlobalOptions = {
-  dryRun: boolean;
-  interactive: boolean;
-};
-
+export type Attachment = { filePath: string; mimetype: string };
 export type Note = {
   annotations?: Annotation[];
   attachments?: Attachment[];
@@ -19,7 +15,6 @@ export type Note = {
   title: string;
   userEditedTimestampUsec: number;
 };
-
 type Annotation = {
   description: string;
   email?: string;
@@ -28,8 +23,6 @@ type Annotation = {
   title: string;
   url: string;
 };
-type Attachment = { filePath: string; mimetype: string };
 type Label = { name: string };
 type ListItem = { isChecked?: boolean; text: string; textHtml: string };
-
 type Task = { id: string };

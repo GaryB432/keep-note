@@ -1,27 +1,32 @@
-import type { Attachment, Note } from "#lib/keep/types.d";
-
-import { hyphenate_date } from "#lib/app/strings";
-import { MarkdownDocument } from "#lib/markdown/document";
 import { isCancel, text } from "@clack/prompts";
 import { cyan } from "ansis";
 import { join, parse } from "node:path";
 
+import type { Attachment, Note } from "../keep/types.ts";
+
+import { MarkdownDocument } from "../markdown/document.ts";
+import { enquote, hyphenate_date, leftWords } from "./strings.ts";
+
 type Renamer = {
   input: string;
-  output: string | symbol;
+  output: string;
 };
 
 export async function createSingleDocument(
-  notes: Note[],
+  notes: Partial<Note>[],
   path: string,
   outDir: string,
   interactive: boolean,
 ): Promise<MarkdownDocument> {
   const doc = new MarkdownDocument();
 
-  const sorted_notes = notes.toSorted(
-    (a, b) => b.userEditedTimestampUsec - a.userEditedTimestampUsec,
-  );
+  const sorted_notes = notes
+    .map((n) => ({
+      textContent: n.textContent ?? "**note content**",
+      userEditedTimestampUsec: n.userEditedTimestampUsec ?? 0,
+      ...n,
+    }))
+    .toSorted((a, b) => b.userEditedTimestampUsec - a.userEditedTimestampUsec);
 
   let cancelled = false;
 
@@ -35,11 +40,11 @@ export async function createSingleDocument(
     if (!title || title.length < 1) {
       title = [
         "Untitled",
-        hyphenate_date(note.userEditedTimestampUsec / 1000).concat(` ${i}`),
+        hyphenate_date(note.userEditedTimestampUsec / 1000).concat(` ${i + 1}`),
       ].join(" ");
     }
 
-    doc.appendHeading(title);
+    doc.appendHeading(leftWords(title, 40), 2);
 
     if (note.textContent && note.textContent !== "") {
       doc.appendParagraph(note.textContent.trimEnd());
@@ -77,9 +82,11 @@ export async function createSingleDocument(
         }
       }
       if (flines.length > 0) {
-        doc.appendHeading("Attachments", 2);
+        doc.appendHeading("Attachments", 3);
         doc.appendCode(
-          flines.map((c) => ["cp", c.input, c.output].join(" ")),
+          flines.map((c) =>
+            ["cp", enquote(c.input), enquote(c.output)].join(" "),
+          ),
           "bash",
         );
       }
