@@ -4,7 +4,8 @@ import { existsSync } from "node:fs";
 import { glob, mkdir, readFile, writeFile } from "node:fs/promises";
 import { join, parse } from "node:path";
 
-import type { GlobalOptions, Note } from "./types";
+import type { GlobalOptions } from "../app/types.ts";
+import type { Note } from "./types";
 
 import { createSingleDocument } from "../app/summarizer.ts";
 
