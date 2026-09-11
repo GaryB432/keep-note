@@ -21,8 +21,8 @@ export async function createSingleDocument(
   const doc = new MarkdownDocument();
 
   const sorted_notes = notes
-    .filter((n) => !!n.textContent)
     .map((n) => ({
+      textContent: n.textContent ?? "**note content**",
       userEditedTimestampUsec: n.userEditedTimestampUsec ?? 0,
       ...n,
     }))
