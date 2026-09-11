@@ -5,7 +5,7 @@ import { glob, mkdir, readFile, writeFile } from "node:fs/promises";
 import { join, parse } from "node:path";
 
 import type { GlobalOptions } from "../app/types.ts";
-import type { Note } from "./types";
+import type { Note } from "./types.ts";
 
 import { createSingleDocument } from "../app/summarizer.ts";
 

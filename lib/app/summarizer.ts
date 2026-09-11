@@ -2,7 +2,7 @@ import { isCancel, text } from "@clack/prompts";
 import { cyan } from "ansis";
 import { join, parse } from "node:path";
 
-import type { Attachment, Note } from "../keep/types.d.ts";
+import type { Attachment, Note } from "../keep/types.ts";
 
 import { MarkdownDocument } from "../markdown/document.ts";
 import { enquote, hyphenate_date, leftWords } from "./strings.ts";

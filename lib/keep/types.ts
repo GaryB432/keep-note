@@ -1,3 +1,4 @@
+export type Attachment = { filePath: string; mimetype: string };
 export type Note = {
   annotations?: Annotation[];
   attachments?: Attachment[];
@@ -22,7 +23,6 @@ type Annotation = {
   title: string;
   url: string;
 };
-type Attachment = { filePath: string; mimetype: string };
 type Label = { name: string };
 type ListItem = { isChecked?: boolean; text: string; textHtml: string };
 type Task = { id: string };
