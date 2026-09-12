@@ -1,4 +1,4 @@
-import { isCancel, text } from "@clack/prompts";
+import { text } from "@clack/prompts";
 import { cyan } from "ansis";
 import { join, parse } from "node:path";
 
@@ -72,7 +72,7 @@ export async function createSingleDocument(
           ? resolveAttachmentName(outDir, a)
           : Promise.resolve(join(outDir, p.base));
         const output = await newNamePromise;
-        if (isCancel(output)) {
+        if (typeof output === "symbol") {
           return output;
         } else {
           flines.push({ input: join(path, p.base), output });
@@ -118,11 +118,11 @@ async function resolveAttachmentName(
 
     message: `Rename ${cyan(attachment.mimetype)}  Attachment`,
     validate: (v) => {
-      if (v.length === 0) {
+      if (!v || v.length === 0) {
         return "Attachment must have a name";
       }
     },
   });
 
-  return isCancel(name) ? name : join(outDir, name.concat(parts.ext));
+  return typeof name === "symbol" ? name : join(outDir, name.concat(parts.ext));
 }

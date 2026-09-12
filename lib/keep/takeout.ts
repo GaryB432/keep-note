@@ -56,12 +56,6 @@ export async function takeoutCommand(
   path: string,
   options: Readonly<Partial<TakeoutOptions>>,
 ): Promise<void> {
-  // const forcePrompts = typeof options?.interactive === "undefined";
-  if (typeof options.outDir === "boolean") {
-    frog.error("weird args. see help.");
-    process.exit(1);
-  }
-
   const interactive = options.ci ? false : (options.interactive ?? true);
 
   if (!existsSync(path)) {
