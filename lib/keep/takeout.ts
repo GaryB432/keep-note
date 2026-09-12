@@ -1,4 +1,4 @@
-import { log as frog, isCancel, note, text } from "@clack/prompts";
+import { log as frog, note, text } from "@clack/prompts";
 import { bold, cyan, dim, green, underline, yellow } from "ansis";
 import { existsSync } from "node:fs";
 import { glob, mkdir, readFile, writeFile } from "node:fs/promises";
@@ -56,12 +56,6 @@ export async function takeoutCommand(
   path: string,
   options: Readonly<Partial<TakeoutOptions>>,
 ): Promise<void> {
-  // const forcePrompts = typeof options?.interactive === "undefined";
-  if (typeof options.outDir === "boolean") {
-    frog.error("weird args. see help.");
-    process.exit(1);
-  }
-
   const interactive = options.ci ? false : (options.interactive ?? true);
 
   if (!existsSync(path)) {
@@ -73,10 +67,10 @@ export async function takeoutCommand(
     let maybe_od: string | symbol | undefined = options.outDir;
 
     if (!maybe_od) {
-      maybe_od = await resolveOutDir("clout/notes");
+      maybe_od = await resolveOutDir("cloud/notes");
     }
 
-    if (!maybe_od || isCancel(maybe_od)) {
+    if (typeof maybe_od === "symbol") {
       return;
     }
 
@@ -109,7 +103,7 @@ export async function takeoutCommand(
     const doc = await createSingleDocument(notes, path, outDir, interactive);
     if (options.dryRun) {
       frog.warn(`Dry Run. ${yellow(outDir)} not written.`);
-    } else if (isCancel(doc)) {
+    } else if (typeof doc === "symbol") {
       frog.info("cancelled");
     } else {
       await writeFile(summaryFilePath, doc.lines.join("\n"));
