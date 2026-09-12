@@ -67,7 +67,7 @@ export async function takeoutCommand(
     let maybe_od: string | symbol | undefined = options.outDir;
 
     if (!maybe_od) {
-      maybe_od = await resolveOutDir("clout/notes");
+      maybe_od = await resolveOutDir("cloud/notes");
     }
 
     if (typeof maybe_od === "symbol") {

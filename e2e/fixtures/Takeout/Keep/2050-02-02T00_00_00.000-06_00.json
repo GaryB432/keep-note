@@ -7,12 +7,30 @@
       "url": "https://www.e2e-today.com/us/blog/e2e-today-blog/the-sticking-point"
     }
   ],
+  "attachments": [
+    {
+      "mimetype": "text/html",
+      "filePath": "Standard_document_structure_for_web_pages.html"
+    },
+    {
+      "mimetype": "text/javascript",
+      "filePath": "Executable_scripts_powering_modern_web_application_logic.js"
+    },
+    {
+      "mimetype": "application/pdf",
+      "filePath": "Portable_Document_Format_for_universally_consistent_document_viewing.pdf"
+    },
+    {
+      "mimetype": "audio/mpeg",
+      "filePath": "Standard_compressed_audio_format_widely_used_for_MP3_music_files.mpg"
+    }
+  ],
   "color": "DEFAULT",
   "isTrashed": false,
   "isPinned": false,
   "isArchived": false,
-  "textContent": "https://www.e2e-today.com/blog/e2e-today-blog",
-  "title": "",
+  "textContent": "You won't believe the mime types\nwith just one click",
+  "title": "Favorite mime types",
   "userEditedTimestampUsec": 2527308660000000,
   "createdTimestampUsec": 2527308660000000
 }

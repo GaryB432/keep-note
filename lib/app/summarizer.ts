@@ -1,5 +1,5 @@
-import { text } from "@clack/prompts";
-import { cyan } from "ansis";
+import { log as frog, note as missive, text } from "@clack/prompts";
+import { cyan, greenBright } from "ansis";
 import { join, parse } from "node:path";
 
 import type { Attachment, Note } from "../keep/types.ts";
@@ -65,13 +65,24 @@ export async function createSingleDocument(
     }
 
     if (note.attachments) {
+      if (interactive) {
+        missive(note.textContent, "Note context");
+        frog.message(greenBright("Provide attachment names"));
+      }
+      // ,
+
       const flines: Renamer[] = [];
-      for (const a of note.attachments) {
+      for (const [i, a] of note.attachments.entries()) {
         const p = parse(a.filePath);
-        const newNamePromise = interactive
-          ? resolveAttachmentName(outDir, a)
-          : Promise.resolve(join(outDir, p.base));
-        const output = await newNamePromise;
+        let nnp: Promise<string | symbol> | undefined;
+        if (interactive) {
+          frog.message(cyan(`${i + 1} of ${note.attachments.length}`));
+          nnp = resolveAttachmentName(outDir, a);
+        } else {
+          nnp = Promise.resolve(join(outDir, p.base));
+        }
+
+        const output = await nnp;
         if (typeof output === "symbol") {
           return output;
         } else {
