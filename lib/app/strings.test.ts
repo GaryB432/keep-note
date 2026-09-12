@@ -1,7 +1,7 @@
 import assert from "node:assert";
 import { describe, test } from "node:test";
 
-import { leftWords, timestampForDir } from "./strings.ts";
+import { hyphenate_date, leftWords, timestampForDir } from "./strings.ts";
 
 describe("Strings", () => {
   test("leftWords returns leftmost words up to maxLength", () => {
@@ -17,9 +17,17 @@ describe("Strings", () => {
   });
 });
 
+const one_very_special_centennial = new Date(2059, 4, 20, 16, 11, 42);
 test("timestampForDir formats a timestamp", () => {
   assert.strictEqual(
-    timestampForDir(new Date(2059, 4, 20, 16, 11, 42)),
+    timestampForDir(one_very_special_centennial),
     "2059-05-20_16-11-42",
+  );
+});
+
+test("hyphenate_date hyphenates a date", () => {
+  assert.strictEqual(
+    hyphenate_date(one_very_special_centennial),
+    "May 20 2059",
   );
 });

@@ -74,15 +74,15 @@ export async function createSingleDocument(
       const flines: Renamer[] = [];
       for (const [i, a] of note.attachments.entries()) {
         const p = parse(a.filePath);
-        let nnp: Promise<string | symbol> | undefined;
+        let newName: Promise<string | symbol>;
         if (interactive) {
           frog.message(cyan(`${i + 1} of ${note.attachments.length}`));
-          nnp = resolveAttachmentName(outDir, a);
+          newName = resolveAttachmentName(outDir, a);
         } else {
-          nnp = Promise.resolve(join(outDir, p.base));
+          newName = Promise.resolve(join(outDir, p.base));
         }
 
-        const output = await nnp;
+        const output = await newName;
         if (typeof output === "symbol") {
           return output;
         } else {

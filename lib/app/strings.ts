@@ -4,10 +4,19 @@ export function enquote(str: string, double = true) {
 }
 
 export function hyphenate_date(date: Date | number): string {
-  return new Intl.DateTimeFormat()
-    .formatToParts(date)
-    .map((t) => (t.type === "literal" ? "-" : t.value))
-    .join("");
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
+  const parts = formatter.formatToParts(date);
+
+  return [
+    parts.find((p) => p.type === "month")?.value,
+    parts.find((p) => p.type === "day")?.value,
+    parts.find((p) => p.type === "year")?.value,
+  ].join(" ");
 }
 
 export function leftWords(s: string, maxLength = 100): string {
