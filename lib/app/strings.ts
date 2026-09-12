@@ -3,22 +3,6 @@ export function enquote(str: string, double = true) {
   return [q, str.trim(), q].join("");
 }
 
-export function hyphenate_date(date: Date | number): string {
-  const formatter = new Intl.DateTimeFormat("en-US", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-
-  const parts = formatter.formatToParts(date);
-
-  return [
-    parts.find((p) => p.type === "month")?.value,
-    parts.find((p) => p.type === "day")?.value,
-    parts.find((p) => p.type === "year")?.value,
-  ].join(" ");
-}
-
 export function leftWords(s: string, maxLength = 100): string {
   const words = s.replace(/[^a-zA-Z0-9._-]+/g, "\t\t").split(/\s+/);
 
@@ -34,6 +18,22 @@ export function leftWords(s: string, maxLength = 100): string {
     }
   }
   return response.trim();
+}
+
+export function titleizeDate(date: Date | number): string {
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
+  const parts = formatter.formatToParts(date);
+
+  return [
+    parts.find((p) => p.type === "month")?.value,
+    parts.find((p) => p.type === "day")?.value,
+    parts.find((p) => p.type === "year")?.value,
+  ].join(" ");
 }
 
 export const HASH = "#";
