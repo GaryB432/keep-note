@@ -15,8 +15,8 @@
     "dev": "node ./bin.ts"
   },
   "dependencies": {
-    "@clack/prompts": "^0.7.0",
-    "cac": "^6.7.14",
+    "@clack/prompts": "^1.8.0",
+    "cac": "^7.0.0",
     "glob": "^13.0.5",
     "toml": "^3.0.0"
   },
