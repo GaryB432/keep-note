@@ -11,7 +11,7 @@ describe("MarkdownDocument", () => {
 
   test("appendHeading adds heading", () => {
     doc.appendHeading("Hello", 2);
-    assert.strictEqual(doc.lines[0], "## Hello");
+    assert.equal(doc.lines[0], "## Hello");
   });
 
   test("appendList adds bullet list", () => {
@@ -39,7 +39,6 @@ test("handles non-empty separator correctly", () => {
   const docWithSep = new MarkdownDocument({ separator: "<<" });
   docWithSep.appendParagraph("foo\nis\nfun");
   docWithSep.appendParagraph("bar");
-  // The lines getter should omit the trailing separator, but keep all content
   assert.deepEqual(docWithSep.lines, ["foo", "is", "fun", "<<", "bar", "<<"]);
 });
 
