@@ -5,7 +5,7 @@ import { join, parse } from "node:path";
 import type { Attachment, Note } from "../keep/types.ts";
 
 import { MarkdownDocument } from "../markdown/document.ts";
-import { enquote, hyphenate_date, leftWords } from "./strings.ts";
+import { enquote, leftWords, titleizeDate } from "./strings.ts";
 
 type Renamer = {
   input: string;
@@ -38,7 +38,8 @@ export async function createSingleDocument(
     if (!title || title.length < 1) {
       title = [
         "Untitled",
-        hyphenate_date(note.userEditedTimestampUsec / 1000).concat(` ${i + 1}`),
+        titleizeDate(note.userEditedTimestampUsec / 1000),
+        i.toString(10),
       ].join(" ");
     }
 
@@ -74,15 +75,15 @@ export async function createSingleDocument(
       const flines: Renamer[] = [];
       for (const [i, a] of note.attachments.entries()) {
         const p = parse(a.filePath);
-        let nnp: Promise<string | symbol> | undefined;
+        let newName: Promise<string | symbol>;
         if (interactive) {
           frog.message(cyan(`${i + 1} of ${note.attachments.length}`));
-          nnp = resolveAttachmentName(outDir, a);
+          newName = resolveAttachmentName(outDir, a);
         } else {
-          nnp = Promise.resolve(join(outDir, p.base));
+          newName = Promise.resolve(join(outDir, p.base));
         }
 
-        const output = await nnp;
+        const output = await newName;
         if (typeof output === "symbol") {
           return output;
         } else {
